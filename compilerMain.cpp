@@ -19,10 +19,12 @@ int main(int argc, char **argv){
 
 	Token token;
 
-	do{
+//	do{
+	for(int i = 0; i < 10; i++){
 		token = myLexicalAnalyzer.getToken();
 		cout << token.text << " " << token.type << endl;
-	}while(token.type != "EOF");
+	}
+//	}while(token.type != "EOF");
 
 return 1;
 }

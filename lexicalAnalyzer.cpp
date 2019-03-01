@@ -68,6 +68,8 @@ Token LexicalAnalyzer::getToken(){
 
 	currentToken += temp;
 
+	cout << "Read: " << temp << endl;
+
 	//Remove white space
 	while( currentToken == "\r" || currentToken == "\n" || currentToken == "\t" || currentToken == " " ){
 		if(storageStack.empty())
@@ -77,6 +79,7 @@ Token LexicalAnalyzer::getToken(){
 			storageStack.pop_back();
 		}
 		currentToken = temp;
+
 	}
 
 
@@ -118,7 +121,6 @@ Token LexicalAnalyzer::getToken(){
 	else 
 		currentState = UNKNOWN;
 
-	cout << "got here" << endl;
 	//Start of State Machine 
 	while(true){
 		switch(currentState){
@@ -149,7 +151,7 @@ Token LexicalAnalyzer::getToken(){
 					duplicate = 0;
 				}
 				else if(duplicate == 1){
-					return Token(currentToken, definedTokens[lastMatch], currentState);
+					return Token(currentToken, definedTokens[lastMatch + 1], currentState);
 				}
 				else if(duplicate == 0){
 					storageStack.push_back(temp);
@@ -165,17 +167,19 @@ Token LexicalAnalyzer::getToken(){
 		}
 			break;
 		case IDENT:
+			cout << "got to IDENT" << endl;
 			while(currentState == IDENT){
 				inFile >> temp;
-				if(((temp >= 'a') && (temp <= 'z')) || (temp == '_') 
-				   || ((temp >='A') && (temp <= 'Z')) || ((temp >= '0' && (temp <= '9')))){
+				if ( inFile.eof() )
+					return Token(currentToken, "IDENT", currentState);
+				else if(((temp >= 'a') && (temp <= 'z')) || (temp == '_') ||
+				        ((temp >= 'A') && (temp <= 'Z')) || ((temp >= '0') && (temp <= '9'))){
 					;//Do Nothing
 				}
-				else if ( inFile.eof() )
-					return Token(currentToken, "IDENT", currentState);
+
 				else{
 					storageStack.push_back(temp);
-					currentState = INVALID; 
+					return Token(currentToken, "IDENT", currentState);
 				}
 			}
 			break;
@@ -196,7 +200,7 @@ Token LexicalAnalyzer::getToken(){
 					return Token(currentToken, "INTEGER", currentState);
 				else{
 					storageStack.push_back(temp);
-					currentState = INVALID; 
+					return Token(currentToken, "INTEGER", currentState);
 				}
 			}
 			break;
@@ -205,6 +209,7 @@ Token LexicalAnalyzer::getToken(){
 			// 1e+1 == REAL
 			//already has the .
 			//eof
+			return Token(currentToken, "REAL", currentState);
 			break;
 		case STRING:
 			while(currentState == STRING){
@@ -279,7 +284,7 @@ Token LexicalAnalyzer::getToken(){
 			}
 			break;
 		default:
-			// Nothing???
+			currentState = UNKNOWN;
 			break;
 		}	
 	}
