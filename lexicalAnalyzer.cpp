@@ -68,12 +68,14 @@ Token LexicalAnalyzer::getToken(){
 
 	currentToken += temp;
 
-	cout << "Read: " << temp << endl;
-
 	//Remove white space
-	while( currentToken == "\r" || currentToken == "\n" || currentToken == "\t" || currentToken == " " ){
-		if(storageStack.empty())
+	while( currentState != EEOF && (currentToken == "\r" || currentToken == "\n" || 
+	       currentToken == "\t" || currentToken == " ") ){
+		if(storageStack.empty()){
+			if(inFile.eof())
+			       currentState = EEOF;	
 			inFile >> temp;
+		}
 		else{
 			temp = storageStack.back();
 			storageStack.pop_back();
@@ -82,22 +84,20 @@ Token LexicalAnalyzer::getToken(){
 
 	}
 
-
 	// Start of State primer 
-	if(temp <= '9' && temp >= '0')
+	if(temp <= '9' && temp >= '1')
 		currentState = INTEGER;
-	else if(currentToken == ".")
-		currentState = REAL;
+	else if(currentToken == "0")
+		return Token(currentToken, "INTEGER", INTEGER);
 	else if(currentToken == "\"")
 		currentState = STRING;
 	else if(currentToken == "#")
 		currentState = LINECOMMENT;
-	else if(currentToken == "<"){ //Buggy? related to having stuff on storage when checking syntax
-		inFile >> temp;
-		currentToken += temp;
+	else if(currentToken == "<"){ 
+		inFile.get(temp);
 		if ( temp == '<'){
 			storageStack.push_back(temp);
-			inFile >> temp;
+			inFile.get(temp);
 			if (temp == '-'){
 				currentState = BLOCKCOMMENT;
 				currentToken += storageStack.back();
@@ -116,7 +116,7 @@ Token LexicalAnalyzer::getToken(){
 		currentState = IDENT;
 	else if(checkIfDefinedToken(currentToken))
 		currentState = DEFINEDTOKEN;
-	else if(temp == inFile.eof())
+	else if(inFile.eof())
 		currentState = EEOF;
 	else 
 		currentState = UNKNOWN;
@@ -137,6 +137,20 @@ Token LexicalAnalyzer::getToken(){
 		{
 			int duplicate = 0;
 			int lastMatch = -1;
+			
+			if( temp == '.' ){
+				inFile.get(temp);
+				if(temp >= '0' && temp <= '9'){
+					storageStack.push_back(temp);
+					temp = '.';
+					currentState = REAL;
+				}
+				else{
+					storageStack.push_back(temp);
+					return Token(".", "DOT", currentState);
+				}
+			}
+
 			while(currentState == DEFINEDTOKEN){
 				for(int i = 0; i <= definedTokens.size(); i++){
 					if( checkIfContains(currentToken, definedTokens[i]) ){
@@ -167,14 +181,19 @@ Token LexicalAnalyzer::getToken(){
 		}
 			break;
 		case IDENT:
-			cout << "got to IDENT" << endl;
 			while(currentState == IDENT){
-				inFile >> temp;
+				if(storageStack.empty())
+					inFile.get(temp);
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
 				if ( inFile.eof() )
 					return Token(currentToken, "IDENT", currentState);
 				else if(((temp >= 'a') && (temp <= 'z')) || (temp == '_') ||
 				        ((temp >= 'A') && (temp <= 'Z')) || ((temp >= '0') && (temp <= '9'))){
-					;//Do Nothing
+					currentToken += temp;
 				}
 
 				else{
@@ -184,16 +203,14 @@ Token LexicalAnalyzer::getToken(){
 			}
 			break;
 		case INTEGER:
-			//Error <------------------------------------------------
-			// 1e+q == Int Ident Operator Ident
-			// check here for case above???
 			while(currentState == INTEGER){
-				inFile >> temp;
+				inFile.get(temp);
 				if(temp >= '0' && temp <= '9'){
-					;//Do Nothing
-				}
-				else if(temp == '.'){
 					currentToken += temp;
+				}
+				else if(temp == '.' || temp == 'e' || temp == 'E'){
+					if(temp == '.')
+						currentToken += temp;
 					currentState = REAL;
 				}
 				else if( inFile.eof() )
@@ -205,21 +222,75 @@ Token LexicalAnalyzer::getToken(){
 			}
 			break;
 		case REAL:
-			//Error <------------------------------------------------
-			// 1e+1 == REAL
-			//already has the .
-			//eof
+			if(temp == '.'){ 
+				if(storageStack.empty())
+					inFile.get(temp);
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
+				if( temp >= '0' && temp <= '9'){
+					while( temp >= '0' && temp <= '9' ){
+						currentToken += temp;
+						inFile.get(temp);
+					}	
+				}
+				else{
+					storageStack.push_back(temp);
+					return Token(currentToken, "REAL", DEFINEDTOKEN);
+				}
+			}
+
+			if( temp == 'e' || temp == 'E') { 
+				char eTemp = temp;
+				inFile.get(temp);
+				char oTemp = temp;
+				if(temp == '+' || temp == '-'){
+					inFile.get(temp);
+					if (temp >= '1' && temp <= '9'){
+						currentToken += eTemp;;
+						currentToken += oTemp;
+						currentToken += temp;
+					}
+					else{ 
+						storageStack.push_back(temp);
+						storageStack.push_back(oTemp);
+						storageStack.push_back(eTemp);
+						return Token(currentToken, "REAL", currentState);
+					}
+				}
+				else{
+					if (temp >= '1' && temp <= '9'){
+						currentToken += eTemp;
+						currentToken += temp;
+					}
+					else{ 
+						storageStack.push_back(oTemp);
+						storageStack.push_back(eTemp);
+						return Token(currentToken, "REAL", currentState);
+					}
+				}
+				
+				inFile.get(temp);
+				while( temp >= '0' && temp <= '9' ){
+					currentToken += temp;
+					inFile.get(temp);
+				}	
+			}
+
 			return Token(currentToken, "REAL", currentState);
+			
 			break;
 		case STRING:
 			while(currentState == STRING){
-				inFile >> temp;
+				inFile.get(temp);
 				if(temp == '\"'){
 					currentToken += temp;
 					return Token(currentToken, "STRING", currentState);
 				}
 				else if( temp == '\\'){
-					inFile >> temp;
+					inFile.get(temp);
 					if( temp == '\\' )
 						currentToken += "\\" ;
 					else if( temp == 'n' )
@@ -241,30 +312,30 @@ Token LexicalAnalyzer::getToken(){
 					}
 				}
 				else if( inFile.eof() )
-					return Token(currentToken, "STRING", currentState);
+					currentState = INVALID;
 				else
 					currentToken += temp;
 			}
 			break;
 		case LINECOMMENT:
 			while(currentState == LINECOMMENT){
-				inFile >> temp;
+				inFile.get(temp);
 				if(temp == '\n' || inFile.eof())
-					return Token(currentToken, "LINECOMMENT", currentState);
+					return getToken();
 				else
 					currentToken += temp;
 			}
 			break;
 		case BLOCKCOMMENT:
 			while(currentState == BLOCKCOMMENT){
-				inFile >> temp;
+				inFile.get(temp);
 				if( temp == '-' ){
-					inFile >> temp;
+					inFile.get(temp);
 					if( temp == '>'){
-						inFile >> temp;
+						inFile.get(temp);
 						if(temp == '>'){
 							currentToken += "->>";
-							return Token(currentToken, "BLOCKCOMMENT", currentState);
+							return getToken();
 						}
 						else
 							currentToken += "->";
@@ -273,12 +344,12 @@ Token LexicalAnalyzer::getToken(){
 						currentToken += "-";
 					
 					if( inFile.eof() )
-						return Token(currentToken, "BLOCKCOMMENT", currentState);
+						currentState = INVALID;
 					else
 						currentToken += temp;
 				}
 				else if ( inFile.eof() )
-					return Token(currentToken, "BLOCKCOMMENT", currentState);
+					currentState = INVALID;
 				else
 					currentToken += temp;
 			}
