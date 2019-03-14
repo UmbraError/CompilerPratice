@@ -94,22 +94,34 @@ Token LexicalAnalyzer::getToken(){
 	else if(currentToken == "#")
 		currentState = LINECOMMENT;
 	else if(currentToken == "<"){ 
-		inFile.get(temp);
+		if(storageStack.empty())
+			inFile >> temp;
+		else{
+			temp = storageStack.back();
+			storageStack.pop_back();
+		}
 		if ( temp == '<'){
-			storageStack.push_back(temp);
-			inFile.get(temp);
+			if(storageStack.empty())
+				inFile >> temp;
+			else{
+				temp = storageStack.back();
+				storageStack.pop_back();
+			}
 			if (temp == '-'){
 				currentState = BLOCKCOMMENT;
-				currentToken += storageStack.back();
-				storageStack.pop_back();
-				currentToken += temp;
+				currentToken += "<-"; 
 			}
 			else{
 				storageStack.push_back(temp);
+				storageStack.push_back('<');
+				temp = '<';
+				currentState = DEFINEDTOKEN;
 			}
 		}
 		else{
 			storageStack.push_back(temp);
+			temp = '<';
+			currentToken = DEFINEDTOKEN;
 		}
 	}
 	else if(((temp >= 'a') && (temp <= 'z')) || (temp == '_') || ((temp >='A') && (temp <= 'Z')))
@@ -139,7 +151,13 @@ Token LexicalAnalyzer::getToken(){
 			int lastMatch = -1;
 			
 			if( temp == '.' ){
-				inFile.get(temp);
+				if(storageStack.empty())
+					inFile >> temp;
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
 				if(temp >= '0' && temp <= '9'){
 					storageStack.push_back(temp);
 					temp = '.';
@@ -155,14 +173,29 @@ Token LexicalAnalyzer::getToken(){
 				for(int i = 0; i <= definedTokens.size(); i++){
 					if( checkIfContains(currentToken, definedTokens[i]) ){
 						duplicate++;
-						lastMatch = i;
 					}
-					if(duplicate >= 2)
-						i = definedTokens.size();
+					if(0 == currentToken.compare(definedTokens[i]))
+						lastMatch = i;	
+					//if(duplicate >= 2)
+					//	i = definedTokens.size() + 1;
 				}
 				if(duplicate >= 2){
-					inFile >> temp;
-					duplicate = 0;
+					if(storageStack.empty())
+						inFile >> temp;
+					else{
+						temp = storageStack.back();
+						storageStack.pop_back();
+					}
+
+					if( checkIfDefinedToken(currentToken + temp) ){
+						currentToken += temp;
+						duplicate = 0;
+					}
+					else{
+						storageStack.push_back(temp);
+						return Token(currentToken, definedTokens[lastMatch + 1], 
+							     currentState);
+					}
 				}
 				else if(duplicate == 1){
 					return Token(currentToken, definedTokens[lastMatch + 1], currentState);
@@ -284,7 +317,13 @@ Token LexicalAnalyzer::getToken(){
 			break;
 		case STRING:
 			while(currentState == STRING){
-				inFile.get(temp);
+				if(storageStack.empty())
+					inFile.get(temp);
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
 				if(temp == '\"'){
 					currentToken += temp;
 					return Token(currentToken, "STRING", currentState);
@@ -319,7 +358,13 @@ Token LexicalAnalyzer::getToken(){
 			break;
 		case LINECOMMENT:
 			while(currentState == LINECOMMENT){
-				inFile.get(temp);
+				if(storageStack.empty())
+					inFile.get(temp);
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
 				if(temp == '\n' || inFile.eof())
 					return getToken();
 				else
@@ -328,7 +373,13 @@ Token LexicalAnalyzer::getToken(){
 			break;
 		case BLOCKCOMMENT:
 			while(currentState == BLOCKCOMMENT){
-				inFile.get(temp);
+				if(storageStack.empty())
+					inFile.get(temp);
+				else{
+					temp = storageStack.back();
+					storageStack.pop_back();
+				}
+
 				if( temp == '-' ){
 					inFile.get(temp);
 					if( temp == '>'){
@@ -369,7 +420,7 @@ Token LexicalAnalyzer::getToken(){
  *          if cT was % and dt was %* it returns true. 
  */
 bool LexicalAnalyzer::checkIfContains(string currentToken, string definedToken){
-	for(int i = 0; i <= currentToken.length(); i++)
+	for(int i = 0; i < currentToken.length(); i++)
 		if( currentToken[i] != definedToken[i])
 			return false;
 	return true;
@@ -384,3 +435,37 @@ bool LexicalAnalyzer::checkIfDefinedToken(string token){
 			return true;
 	return false;
 }
+
+#define _bitMask(x) ((1 << (x)) - 1)
+#define _bitShift(v, x) ((v) >> (x))
+#define bitRange(v, u, l) (_bitMask(((u) - (l))) & _bitShift((v), (l)))
+string hex_to_unicode(string hex) {
+	int len = 0;
+	long v = strtol(hex.c_str(), NULL, 16);
+	long vt(v);
+
+	while (vt)
+		(vt >>= 1, len++);
+
+	if (len <= 7)
+		return string() + char(v);
+	else if (len <= 5 + 6)
+		return string() + char((0b110 << 5) | bitRange(v, 5 + 6, 6)) +
+		char((0b10 << 6) | bitRange(v, 6, 0));
+	else if (len <= 4 + 6 + 6)
+		return string() + char((0b1110 << 4) | bitRange(v, 4 + 6 + 6, 6 + 6)) +
+		char((0b10 << 6) | bitRange(v, 6 + 6, 6)) +
+		char((0b10 << 6) | bitRange(v, 6, 0));
+	else if (len <= 3 + 6 + 6 + 6)
+		return string() +
+		char((0b11110 << 3) | bitRange(v, 3 + 6 + 6 + 6, 6 + 6 + 6)) +
+		char((0b10 << 6) | bitRange(v, 6 + 6 + 6, 6 + 6)) +
+		char((0b10 << 6) | bitRange(v, 6 + 6, 6)) +
+		char((0b10 << 6) | bitRange(v, 6, 0));
+	else
+		return "INVALID UTF8 (" + hex + ")";
+}
+#undef _bitMask
+#undef _bitShift
+#undef bitRange
+

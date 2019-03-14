@@ -1,6 +1,6 @@
 CXX         = clang++
 LIBARYFLAGS = 
-CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses -g $(SANS)
+CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses -g
 
 .PHONY:all
 all: compilerMain.bin
@@ -14,6 +14,3 @@ compilerMain.bin: compilerMain.o lexicalAnalyzer.o token.o
 .PHONY: clean
 clean:
 	rm -f *.o *.bin
-
-include $(wildcard $(DEPDIR)/*.d)
-include $(wildcard *.d)
