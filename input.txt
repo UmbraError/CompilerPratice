@@ -1,5 +1,10 @@
-9 832 + - * /
-raw text ~= 2.3 1e3 2e-12 .1e3;
+9 + - 
+~=
+<=
+<-
+>=
+2.3 1e3 2e-12 .1e3;
+
 <<- a block comment
     as a note: our parser won't be able to deal with long tokens
     if there are invalid partial tokens we can't backup more than 1 and so must error
@@ -15,3 +20,4 @@ handeled 1e+f
 handeled <<j
 handeled <<<- comment with less before it ->>
 # line comment withouth newline
+NotaComment

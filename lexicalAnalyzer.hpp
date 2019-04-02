@@ -46,7 +46,7 @@ class LexicalAnalyzer{
 		/*
 		 * Check the valid Token list for if there could be another longer valid token
 		 */
-		bool checkIfContains(std::string currentToken, std::string definedToken);
+		bool checkIfStarts(std::string currentToken, std::string definedToken);
 		
 		/*
 		 * Check if the current token could be a defined token

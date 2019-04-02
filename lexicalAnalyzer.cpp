@@ -24,8 +24,9 @@ LexicalAnalyzer::LexicalAnalyzer(){
 	definedTokens.push_back(">"); definedTokens.push_back("GREATER");
 	definedTokens.push_back(">="); definedTokens.push_back("GREATER_EQ");
 	definedTokens.push_back("="); definedTokens.push_back("EQUAL");
-	definedTokens.push_back("~="); definedTokens.push_back("NOT_EQUAL");
 	definedTokens.push_back("<-"); definedTokens.push_back("ASSIGN");
+	definedTokens.push_back("~="); definedTokens.push_back("NOT_EQUAL");
+	definedTokens.push_back("~"); definedTokens.push_back("Squigle");
 	definedTokens.push_back("!"); definedTokens.push_back("NOT");
 	definedTokens.push_back("("); definedTokens.push_back("LPAREN");
 	definedTokens.push_back(")"); definedTokens.push_back("RPAREN");
@@ -121,7 +122,7 @@ Token LexicalAnalyzer::getToken(){
 		else{
 			storageStack.push_back(temp);
 			temp = '<';
-			currentToken = DEFINEDTOKEN;
+			currentState = DEFINEDTOKEN;
 		}
 	}
 	else if(((temp >= 'a') && (temp <= 'z')) || (temp == '_') || ((temp >='A') && (temp <= 'Z')))
@@ -147,9 +148,6 @@ Token LexicalAnalyzer::getToken(){
 			break;
 		case DEFINEDTOKEN:
 		{
-			int duplicate = 0;
-			int lastMatch = -1;
-			
 			if( temp == '.' ){
 				if(storageStack.empty())
 					inFile >> temp;
@@ -169,17 +167,21 @@ Token LexicalAnalyzer::getToken(){
 				}
 			}
 
+			int lastPerfectMatch = -1;
+
 			while(currentState == DEFINEDTOKEN){
+		
+				int duplicate = 0;
+
 				for(int i = 0; i <= definedTokens.size(); i++){
-					if( checkIfContains(currentToken, definedTokens[i]) ){
+					if( checkIfStarts(currentToken, definedTokens[i]) ){
 						duplicate++;
 					}
 					if(0 == currentToken.compare(definedTokens[i]))
-						lastMatch = i;	
-					//if(duplicate >= 2)
-					//	i = definedTokens.size() + 1;
+						lastPerfectMatch = i;	
 				}
-				if(duplicate >= 2){
+
+				if(duplicate >= 1){
 					if(storageStack.empty())
 						inFile >> temp;
 					else{
@@ -187,28 +189,21 @@ Token LexicalAnalyzer::getToken(){
 						storageStack.pop_back();
 					}
 
-					if( checkIfDefinedToken(currentToken + temp) ){
-						currentToken += temp;
-						duplicate = 0;
-					}
-					else{
+					if( !checkIfDefinedToken(currentToken + temp) ){
 						storageStack.push_back(temp);
-						return Token(currentToken, definedTokens[lastMatch + 1], 
+						return Token(currentToken, definedTokens[lastPerfectMatch + 1], 
 							     currentState);
 					}
-				}
-				else if(duplicate == 1){
-					return Token(currentToken, definedTokens[lastMatch + 1], currentState);
-				}
-				else if(duplicate == 0){
-					storageStack.push_back(temp);
-					currentState = INVALID; 
+					else
+						currentToken += temp;
+
 				}
 				else if(inFile.eof()){
-					currentState = INVALID;
-				}
-				else{
-					currentState = UNKNOWN;
+					if(lastPerfectMatch >= 0)
+						return Token(currentToken, definedTokens[lastPerfectMatch + 1], 
+							     currentState);
+					else
+						currentState = INVALID;
 				}
 			}
 		}
@@ -419,7 +414,7 @@ Token LexicalAnalyzer::getToken(){
  * Example: if cT was % and dT was *% it returns false but
  *          if cT was % and dt was %* it returns true. 
  */
-bool LexicalAnalyzer::checkIfContains(string currentToken, string definedToken){
+bool LexicalAnalyzer::checkIfStarts(string currentToken, string definedToken){
 	for(int i = 0; i < currentToken.length(); i++)
 		if( currentToken[i] != definedToken[i])
 			return false;
@@ -430,12 +425,13 @@ bool LexicalAnalyzer::checkIfContains(string currentToken, string definedToken){
  * Check if the current token could be a defined token
  */
 bool LexicalAnalyzer::checkIfDefinedToken(string token){
-	for(int i = 0; i <= definedTokens.size(); i++)
-		if( checkIfContains(token, definedTokens[i]))
+	for(int i = 0; i < definedTokens.size(); i++)
+		if( checkIfStarts(token, definedTokens[i]))
 			return true;
 	return false;
 }
 
+//An example of bit manipulation to solve this problem
 #define _bitMask(x) ((1 << (x)) - 1)
 #define _bitShift(v, x) ((v) >> (x))
 #define bitRange(v, u, l) (_bitMask(((u) - (l))) & _bitShift((v), (l)))
