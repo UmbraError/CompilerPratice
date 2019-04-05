@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "lexicalAnalyzer.hpp"
+#include "parser.hpp"
+#include "MachineCodeGenerator.cpp"
 #include "token.hpp"
 
 using std::string;
@@ -14,6 +16,7 @@ int main(int argc, char **argv){
 	}
 
 	LexicalAnalyzer myLexicalAnalyzer;
+	//Parser myParzer;
 
 	myLexicalAnalyzer.init( (string)argv[1] );
 
