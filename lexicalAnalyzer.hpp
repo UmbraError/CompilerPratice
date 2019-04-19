@@ -9,7 +9,7 @@
 
 class LexicalAnalyzer{ 
 	private:
-		enum state { NNULL,         // Looking for state 
+		enum state { NNULL, // Looking for state 
 		     EEOF,          // Hint EOF charcter
 		     UNKNOWN,       // came across an unknown character
 		     INVALID,       // A set of known characters that don't meet the syntax requirments

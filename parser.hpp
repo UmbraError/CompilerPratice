@@ -9,6 +9,6 @@
 
 class Parser{ 
 	
-}
+};
 
 #endif

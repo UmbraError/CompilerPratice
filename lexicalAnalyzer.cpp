@@ -431,37 +431,10 @@ bool LexicalAnalyzer::checkIfDefinedToken(string token){
 	return false;
 }
 
-//An example of bit manipulation to solve this problem
-#define _bitMask(x) ((1 << (x)) - 1)
-#define _bitShift(v, x) ((v) >> (x))
-#define bitRange(v, u, l) (_bitMask(((u) - (l))) & _bitShift((v), (l)))
-string hex_to_unicode(string hex) {
-	int len = 0;
-	long v = strtol(hex.c_str(), NULL, 16);
-	long vt(v);
-
-	while (vt)
-		(vt >>= 1, len++);
-
-	if (len <= 7)
-		return string() + char(v);
-	else if (len <= 5 + 6)
-		return string() + char((0b110 << 5) | bitRange(v, 5 + 6, 6)) +
-		char((0b10 << 6) | bitRange(v, 6, 0));
-	else if (len <= 4 + 6 + 6)
-		return string() + char((0b1110 << 4) | bitRange(v, 4 + 6 + 6, 6 + 6)) +
-		char((0b10 << 6) | bitRange(v, 6 + 6, 6)) +
-		char((0b10 << 6) | bitRange(v, 6, 0));
-	else if (len <= 3 + 6 + 6 + 6)
-		return string() +
-		char((0b11110 << 3) | bitRange(v, 3 + 6 + 6 + 6, 6 + 6 + 6)) +
-		char((0b10 << 6) | bitRange(v, 6 + 6 + 6, 6 + 6)) +
-		char((0b10 << 6) | bitRange(v, 6 + 6, 6)) +
-		char((0b10 << 6) | bitRange(v, 6, 0));
-	else
-		return "INVALID UTF8 (" + hex + ")";
+/*
+ *
+ */
+string hexToUnicode(string hex) {
+	return "Unicode Char";
 }
-#undef _bitMask
-#undef _bitShift
-#undef bitRange
 
