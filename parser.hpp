@@ -15,7 +15,7 @@ enum nodeType {empty, arthExp, ratExp, logExp, con, integar, integar4, };
 struct Node{
 	nodeType myType;
 	Token myToken;
-	Node* leftChild;
+	Node* leftChild; // a vector of kids would be better here.
 	Node* rightChild;
 
 	//default
@@ -30,6 +30,7 @@ struct Node{
 			rightChild = right;
 	};
 };
+typedef Node code_tree;
 
 /*
  * 
@@ -42,11 +43,6 @@ class Parser{
 	//std::vector<> symbolTable;
 
 	public:
-
-	/*
-	 * Default Construtor
-	 */
-	Parser();
 	
 	/*
 	 * startup
@@ -54,29 +50,9 @@ class Parser{
 	void init(string filename);
 
 	/*
-	 * Get the next valid exp in order of: ...
+	 * Get the file's code tree.
 	 */
-	Node* getNextExp();
-
-	/*
-	 * Get next arthimetic expreesion
-	 */
-	Node* getNextArthExp();
-
-	/*
-	 *
-	 */
-	Node* getNextRatExp();
-
-	/*
-	 *
-	 */
-	Node* getNextLogExp();
-
-	/*
-	 * dealing with addition, subraction
-	 */
-
+	code_tree getCodeTree();
 };
 
 #endif

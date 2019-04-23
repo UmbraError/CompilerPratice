@@ -1,8 +1,5 @@
 #include "parser.hpp"
 
-Parser::Parser(){
-}
-
 Parser::init( std::string filename ){
 	myLexicalAnalyzer.init( filename );
 
@@ -11,39 +8,52 @@ Parser::init( std::string filename ){
 	keywords.push_back("string");
 }
 
-/*
- * Note: need to run init before this
- * Descrpition: Get next arthmatic Expression
- */
-Node* Parser::getNextArthExp(){
-	*Node myNode(arthExp);
-	Token myToken = myLexicalAnalyzer.getToken();
+class Error{
+  std::string message;
+  Error()=default;
+  Error(std::string m):message(m){}
+  bool(){return message=="";}
+};
 
-	if( )
-	;
-	if(EEOF)
-		//terminate;
-	;
+Error parse_string(code_tree&,Lexicalanalyzer&){
 	if(STRING)
 		//break?
 		;
+}
+
+Error parse_add_sub(code_tree&,Lexicalanalyzer&){
 	if("+" || "-")
 		//add, subtract
 		;
+}
+
+Error parse_mull_div(code_tree&,Lexicalanalyzer&){
+	// why check for ident?
 	if(IDENT || "/" || "*")
 		//check if keyword
 		//if not check if declared
 		//
 		;
+}
+
+Error parse_unary_minus(code_tree&,Lexicalanalyzer&){
 	if()
 		//check for negation
 		;
+}
+
+Error parse_number(code_tree&,Lexicalanalyzer&){
+	// we only have ints in these assignments
 	if(REAL || INTEGER)
 		;
+}
+
+Error parse_parenthisis(code_tree&,Lexicalanalyzer&){
 	if("(" || ")") 
 		;
-	if()
-		return getNextArthExp();
-	if()
-		return myNode;
+}
+
+
+code_tree Parser::getCodeTree(){
+  // TODO: Check that init has been called.
 }
