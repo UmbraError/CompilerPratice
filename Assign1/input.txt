@@ -1,0 +1,23 @@
+9 + - 
+~=
+<=
+<-
+>=
+2.3 1e3 2e-12 .1e3;
+
+<<- a block comment
+    as a note: our parser won't be able to deal with long tokens
+    if there are invalid partial tokens we can't backup more than 1 and so must error
+    example: 1e+f as the e and the + are two steps into a real's parse
+    example: <<j as the << could be a <<- we have to have consumed two chars after the first and we can't backup
+    example: "\ug is a unicode string with invalid argument, the \ug requires consuming three tokens
+->>
+"another token"
+"string with unicode\u21 \u222Be\u207Fdn"
+error "\uc\ug\uc"
+# line comment
+handeled 1e+f
+handeled <<j
+handeled <<<- comment with less before it ->>
+# line comment withouth newline
+NotaComment
