@@ -61,13 +61,15 @@ class Parser{
 	void init(string filename);
 
 	/*
+	 * All of these will be local to the cpp file
+	/*
 	 * Get the next valid exp in order of: ...
-	 */
+	 * /
 	Node* getNextExp();
 
 	/*
 	 * Get next arthimetic expreesion
-	 */
+	 * /
 	Node* getNextArthExp();
 
 	//addition_and_subtraction
@@ -86,14 +88,14 @@ class Parser{
 
 	/*
 	 *
-	 */
+	 * /
 	Node* getNextRatExp();
 
 	/*
 	 *
-	 */
+	 * /
 	Node* getNextLogExp();
-
+	*/
 };
 
 #endif
