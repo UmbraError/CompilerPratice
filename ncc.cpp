@@ -16,18 +16,17 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
-	LexicalAnalyzer myLexicalAnalyzer;
-	// Parser myParzer;
+	// iLexicalAnalyzer myLexicalAnalyzer;
+	Parser myParser;
+	myParser.init((string)argv[1]);
 
-	myLexicalAnalyzer.init((string)argv[1]);
+	//	Token token;
 
-	Token token;
-
-	do {
-		// get next arthmerhic expression
-		token = myLexicalAnalyzer.getToken();
-		cout << token.type << ": " << token.text << endl;
-	} while (token.type != "EOF");
+	//	do {
+	// get next arthmerhic expression
+	//		token = myLexicalAnalyzer.getToken();
+	//		cout << token.type << ": " << token.text << endl;
+	//	} while (token.type != "EOF");
 
 	return 1;
 }
