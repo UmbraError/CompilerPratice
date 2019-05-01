@@ -2,100 +2,62 @@
 #define __PARSER_HPP__
 
 #include <string>
-
-//#include <vector>
+#include <vector>
 //#include <iostream>
 //#include <fstream>
 
-#include "token.hpp"
 #include "lexicalAnalyzer.hpp"
+#include "token.hpp"
 
-enum nodeType {empty,
-	       arthExp,
-	       addSub,
-	       multiDiv,	
-	       ratExp, 
-	       logExp, 
-	       con, 
-	       integar4, };
+enum nodeType {
+	empty,
+	arthExp,
+	addSub,
+	multiDiv,
+	ratExp,
+	logExp,
+	con,
+	integar4
+};
 
-struct Node{
+struct Node {
 	nodeType myType;
 	Token myToken;
-	Node* leftChild;
-	Node* rightChild;
+	std::vector<Node> children;
 
-	//default
-	Node(nodeType aType = empty, Token aToken = Token(), Node* left = nullptr, Node* right = nullptr){
-		if(aType == empty)
-			myType = aType;
-		if(aToken.text == "NULL")
-			myToken = aToken;
-		if(left == nullptr)
-			leftChild = left;
-		if(right == nullptr)
-			rightChild = right;
-	};
+	Node(nodeType aType, Token aToken,std::vector<Node> kids={}):
+	  myType{aType),
+	  myToken(aToken),
+	  children(kids){
+	}
 };
 
-/*
- * 
- */
-class Parser{ 
-	private:
+	typedef Node Tree;
 
-	LexicalAnalyzer myLexicalAnalyzer;
-	std::vector<std::string>> keywords;
-	//std::vector<> symbolTable;
+	/*
+	 *
+	 */
+	class Parser {
+	private:
+		LexicalAnalyzer myLexicalAnalyzer;
+		std::vector<std::string>> keywords;
+		// std::vector<> symbolTable;
 
 	public:
+		/*
+		 * Default Construtor
+		 */
+		Parser();
 
-	/*
-	 * Default Construtor
-	 */
-	Parser();
-	
-	/*
-	 * startup
-	 */
-	void init(string filename);
+		/*
+		 * startup
+		 */
+		void init(std::string filename);
 
-	/*
-	 * All of these will be local to the cpp file
-	/*
-	 * Get the next valid exp in order of: ...
-	 * /
-	Node* getNextExp();
-
-	/*
-	 * Get next arthimetic expreesion
-	 * /
-	Node* getNextArthExp();
-
-	//addition_and_subtraction
-	Node* checkAddSub();
-	//multi_div_mod
-	Node* checkMultiDiv();
-	//powers
-	Node* checkPower();
-	//Negation
-	Node* checkSign();
-	//int
-	Node* checkNum();
-	//group, (,)
-	Node* checkForGrouping();
-
-
-	/*
-	 *
-	 * /
-	Node* getNextRatExp();
-
-	/*
-	 *
-	 * /
-	Node* getNextLogExp();
-	*/
-};
+		/*
+		 * Get the next valid exp in order of: ...
+		 */
+		Tree getNext();
+	};
 
 #endif

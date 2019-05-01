@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 
+#include "MachineCodeGenerator.cpp"
 #include "lexicalAnalyzer.hpp"
+#include "parser.hpp"
 #include "token.hpp"
 
 using std::cout;
@@ -22,6 +24,7 @@ int main(int argc, char** argv) {
 	Token token;
 
 	do {
+		// get next arthmerhic expression
 		token = myLexicalAnalyzer.getToken();
 		cout << token.type << ": " << token.text << endl;
 	} while (token.type != "EOF");
