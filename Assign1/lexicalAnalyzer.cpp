@@ -163,7 +163,8 @@ Token LexicalAnalyzer::getToken() {
 				return Token(currentToken, "EOF", currentState);
 				break;
 			case UNKNOWN:
-				return Token(currentToken, "UNKNOWN", currentState);
+				return Token(currentToken, "UNKNOWN",
+				             currentState);
 				break;
 			case INVALID:
 				return Token(currentToken, "INVALID", INVALID);
@@ -183,7 +184,8 @@ Token LexicalAnalyzer::getToken() {
 						currentState = REAL;
 					} else {
 						storageStack.push_back(temp);
-						return Token(".", "DOT", currentState);
+						return Token(".", "DOT",
+						             currentState);
 					}
 				}
 
@@ -192,11 +194,15 @@ Token LexicalAnalyzer::getToken() {
 				while (currentState == DEFINEDTOKEN) {
 					int duplicate = 0;
 
-					for (int i = 0; i <= definedTokens.size(); i++) {
-						if (checkIfStarts(currentToken, definedTokens[i])) {
+					for (int i = 0;
+					     i <= definedTokens.size(); i++) {
+						if (checkIfStarts(
+						        currentToken,
+						        definedTokens[i])) {
 							duplicate++;
 						}
-						if (0 == currentToken.compare(definedTokens[i]))
+						if (0 == currentToken.compare(
+						             definedTokens[i]))
 							lastPerfectMatch = i;
 					}
 
@@ -204,21 +210,32 @@ Token LexicalAnalyzer::getToken() {
 						if (storageStack.empty())
 							inFile >> temp;
 						else {
-							temp = storageStack.back();
+							temp =
+							    storageStack.back();
 							storageStack.pop_back();
 						}
 
-						if (!checkIfDefinedToken(currentToken + temp)) {
-							storageStack.push_back(temp);
-							return Token(currentToken, definedTokens[lastPerfectMatch + 1],
-							             currentState);
+						if (!checkIfDefinedToken(
+						        currentToken + temp)) {
+							storageStack.push_back(
+							    temp);
+							return Token(
+							    currentToken,
+							    definedTokens
+							        [lastPerfectMatch +
+							         1],
+							    currentState);
 						} else
 							currentToken += temp;
 
 					} else if (inFile.eof()) {
 						if (lastPerfectMatch >= 0)
-							return Token(currentToken, definedTokens[lastPerfectMatch + 1],
-							             currentState);
+							return Token(
+							    currentToken,
+							    definedTokens
+							        [lastPerfectMatch +
+							         1],
+							    currentState);
 						else
 							currentState = INVALID;
 					}
@@ -234,16 +251,24 @@ Token LexicalAnalyzer::getToken() {
 					}
 
 					if (inFile.eof())
-						return Token(currentToken, "IDENT", currentState);
-					else if (((temp >= 'a') && (temp <= 'z')) || (temp == '_') ||
-					         ((temp >= 'A') && (temp <= 'Z')) ||
-					         ((temp >= '0') && (temp <= '9'))) {
+						return Token(currentToken,
+						             "IDENT",
+						             currentState);
+					else if (((temp >= 'a') &&
+					          (temp <= 'z')) ||
+					         (temp == '_') ||
+					         ((temp >= 'A') &&
+					          (temp <= 'Z')) ||
+					         ((temp >= '0') &&
+					          (temp <= '9'))) {
 						currentToken += temp;
 					}
 
 					else {
 						storageStack.push_back(temp);
-						return Token(currentToken, "IDENT", currentState);
+						return Token(currentToken,
+						             "IDENT",
+						             currentState);
 					}
 				}
 				break;
@@ -252,14 +277,20 @@ Token LexicalAnalyzer::getToken() {
 					inFile.get(temp);
 					if (temp >= '0' && temp <= '9') {
 						currentToken += temp;
-					} else if (temp == '.' || temp == 'e' || temp == 'E') {
-						if (temp == '.') currentToken += temp;
+					} else if (temp == '.' || temp == 'e' ||
+					           temp == 'E') {
+						if (temp == '.')
+							currentToken += temp;
 						currentState = REAL;
 					} else if (inFile.eof())
-						return Token(currentToken, "INTEGER", currentState);
+						return Token(currentToken,
+						             "INTEGER",
+						             currentState);
 					else {
 						storageStack.push_back(temp);
-						return Token(currentToken, "INTEGER", currentState);
+						return Token(currentToken,
+						             "INTEGER",
+						             currentState);
 					}
 				}
 				break;
@@ -273,13 +304,16 @@ Token LexicalAnalyzer::getToken() {
 					}
 
 					if (temp >= '0' && temp <= '9') {
-						while (temp >= '0' && temp <= '9') {
+						while (temp >= '0' &&
+						       temp <= '9') {
 							currentToken += temp;
 							inFile.get(temp);
 						}
 					} else {
 						storageStack.push_back(temp);
-						return Token(currentToken, "REAL", DEFINEDTOKEN);
+						return Token(currentToken,
+						             "REAL",
+						             DEFINEDTOKEN);
 					}
 				}
 
@@ -289,25 +323,38 @@ Token LexicalAnalyzer::getToken() {
 					char oTemp = temp;
 					if (temp == '+' || temp == '-') {
 						inFile.get(temp);
-						if (temp >= '1' && temp <= '9') {
+						if (temp >= '1' &&
+						    temp <= '9') {
 							currentToken += eTemp;
 							;
 							currentToken += oTemp;
 							currentToken += temp;
 						} else {
-							storageStack.push_back(temp);
-							storageStack.push_back(oTemp);
-							storageStack.push_back(eTemp);
-							return Token(currentToken, "REAL", currentState);
+							storageStack.push_back(
+							    temp);
+							storageStack.push_back(
+							    oTemp);
+							storageStack.push_back(
+							    eTemp);
+							return Token(
+							    currentToken,
+							    "REAL",
+							    currentState);
 						}
 					} else {
-						if (temp >= '1' && temp <= '9') {
+						if (temp >= '1' &&
+						    temp <= '9') {
 							currentToken += eTemp;
 							currentToken += temp;
 						} else {
-							storageStack.push_back(oTemp);
-							storageStack.push_back(eTemp);
-							return Token(currentToken, "REAL", currentState);
+							storageStack.push_back(
+							    oTemp);
+							storageStack.push_back(
+							    eTemp);
+							return Token(
+							    currentToken,
+							    "REAL",
+							    currentState);
 						}
 					}
 
@@ -318,7 +365,8 @@ Token LexicalAnalyzer::getToken() {
 					}
 				}
 
-				return Token(currentToken, "REAL", currentState);
+				return Token(currentToken, "REAL",
+				             currentState);
 
 				break;
 			case STRING:
@@ -332,7 +380,9 @@ Token LexicalAnalyzer::getToken() {
 
 					if (temp == '\"') {
 						currentToken += temp;
-						return Token(currentToken, "STRING", currentState);
+						return Token(currentToken,
+						             "STRING",
+						             currentState);
 					} else if (temp == '\\') {
 						inFile.get(temp);
 						if (temp == '\\')
@@ -388,10 +438,12 @@ Token LexicalAnalyzer::getToken() {
 						if (temp == '>') {
 							inFile.get(temp);
 							if (temp == '>') {
-								currentToken += "->>";
+								currentToken +=
+								    "->>";
 								return getToken();
 							} else
-								currentToken += "->";
+								currentToken +=
+								    "->";
 						} else
 							currentToken += "-";
 

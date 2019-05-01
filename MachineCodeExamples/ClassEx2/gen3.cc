@@ -36,8 +36,10 @@ int main() {
 	//  program[p_offset++] = '\xc1';
 	program[p_offset++] = '\x01';  // ADD EAX, ECX
 	program[p_offset++] = '\xc8';
-	program[p_offset++] = '\x89';  // MOV RDI, RAX  -- ABI specifies use of RDI
-	program[p_offset++] = '\xc7';  //               -- for passing a single int
+	program[p_offset++] =
+	    '\x89';  // MOV RDI, RAX  -- ABI specifies use of RDI
+	program[p_offset++] =
+	    '\xc7';  //               -- for passing a single int
 	program[p_offset++] = '\x48';  // MOV RSI, &print
 	program[p_offset++] = '\xbe';
 

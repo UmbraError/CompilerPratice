@@ -9,13 +9,13 @@
 #include "token.hpp"
 
 class LexicalAnalyzer {
-private:
+       private:
 	enum state {
 		NNULL,         // Looking for state
 		EEOF,          // Hint EOF charcter
 		UNKNOWN,       // came across an unknown character
-		INVALID,       // A set of known characters that don't meet the syntax
-		               // requirments
+		INVALID,       // A set of known characters that don't meet the
+		               // syntax requirments
 		DEFINEDTOKEN,  // !, &, |, <, =, >, and etc.
 		IDENT,         // name_Thingy5657
 		INTEGER,       // 1,2,3,4,5,6,7,8,9,0
@@ -30,7 +30,7 @@ private:
 	std::vector<char> storageStack;
 	std::vector<std::string> definedTokens;
 
-public:
+       public:
 	/*
 	 * Default Constructor
 	 */
@@ -47,7 +47,8 @@ public:
 	Token getToken();
 
 	/*
-	 * Check the valid Token list for if there could be another longer valid token
+	 * Check the valid Token list for if there could be another longer valid
+	 * token
 	 */
 	bool checkIfStarts(std::string currentToken, std::string definedToken);
 

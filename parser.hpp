@@ -25,39 +25,36 @@ struct Node {
 	Token myToken;
 	std::vector<Node> children;
 
-	Node(nodeType aType, Token aToken,std::vector<Node> kids={}):
-	  myType{aType),
-	  myToken(aToken),
-	  children(kids){
-	}
+	Node(nodeType aType, Token aToken, std::vector<Node> kids = {})
+	    : myType(aType), myToken(aToken), children(kids) {}
 };
 
-	typedef Node Tree;
+typedef Node Tree;
+
+/*
+ *
+ */
+class Parser {
+       private:
+	LexicalAnalyzer myLexicalAnalyzer;
+	std::vector<std::string> keywords;
+	// std::vector<> symbolTable;
+
+       public:
+	/*
+	 * Default Construtor
+	 */
+	Parser();
 
 	/*
-	 *
+	 * startup
 	 */
-	class Parser {
-	private:
-		LexicalAnalyzer myLexicalAnalyzer;
-		std::vector<std::string>> keywords;
-		// std::vector<> symbolTable;
+	void init(std::string filename);
 
-	public:
-		/*
-		 * Default Construtor
-		 */
-		Parser();
-
-		/*
-		 * startup
-		 */
-		void init(std::string filename);
-
-		/*
-		 * Get the next valid exp in order of: ...
-		 */
-		Tree getNext();
-	};
+	/*
+	 * Get the next valid exp in order of: ...
+	 */
+	Tree getNext();
+};
 
 #endif
