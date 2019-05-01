@@ -1,5 +1,8 @@
 #include "parser.hpp"
 
+Parser::Parser(){
+}
+
 Parser::init( std::string filename ){
 	myLexicalAnalyzer.init( filename );
 
@@ -8,52 +11,79 @@ Parser::init( std::string filename ){
 	keywords.push_back("string");
 }
 
-class Error{
-  std::string message;
-  Error()=default;
-  Error(std::string m):message(m){}
-  bool(){return message=="";}
-};
+/*
+ * Note: need to run init before this
+ * Descrpition: Get next arthmatic Expression
+ */
+Node* Parser::getNextArthExp(Node* myNode){
 
-Error parse_string(code_tree&,Lexicalanalyzer&){
-	if(STRING)
-		//break?
+	myNode.leftChild = Node* aChild();
+	checkAddSub(myNode.leftChild);
+
+		
+/*
+	//Node myNode(arthExp);
+	//myNode.myToken = myLexicalAnalyzer.getToken();
+
+	//set default?
+	//myNode.myType = arthExp;
+
+
+	//Check addition
+	if(myNode.myToken.type == "ADD" || myNode.myToken.type == "MINUS")
+		//myNode.leftChild = Node* leftNode();
 		;
-}
+	//Check *,/,mod
+	else if()
+		;
+	//Check powers
+	else if()
+		;
+	//Check negation
+	else if()
+		;
+	//Check integar
+	else if()
+		;	
+	//Check (, )
+	else if()
+		;
+	//Check eof
+	else if()
+		;
+	//throw error
+	else 
+		;
 
-Error parse_add_sub(code_tree&,Lexicalanalyzer&){
+*/
+
+
+
+
+
+
+
+
+	myNode.rightChild =
+
 	if("+" || "-")
 		//add, subtract
 		;
-}
-
-Error parse_mull_div(code_tree&,Lexicalanalyzer&){
-	// why check for ident?
 	if(IDENT || "/" || "*")
 		//check if keyword
 		//if not check if declared
 		//
 		;
-}
-
-Error parse_unary_minus(code_tree&,Lexicalanalyzer&){
 	if()
 		//check for negation
 		;
-}
-
-Error parse_number(code_tree&,Lexicalanalyzer&){
-	// we only have ints in these assignments
 	if(REAL || INTEGER)
 		;
-}
-
-Error parse_parenthisis(code_tree&,Lexicalanalyzer&){
 	if("(" || ")") 
 		;
-}
+	if()
+		return getNextArthExp();
 
-
-code_tree Parser::getCodeTree(){
-  // TODO: Check that init has been called.
+	if(myNode.myToken == EEOF)
+		return myNode;
 }

@@ -10,12 +10,19 @@
 #include "token.hpp"
 #include "lexicalAnalyzer.hpp"
 
-enum nodeType {empty, arthExp, ratExp, logExp, con, integar, integar4, };
+enum nodeType {empty,
+	       arthExp,
+	       addSub,
+	       multiDiv,	
+	       ratExp, 
+	       logExp, 
+	       con, 
+	       integar4, };
 
 struct Node{
 	nodeType myType;
 	Token myToken;
-	Node* leftChild; // a vector of kids would be better here.
+	Node* leftChild;
 	Node* rightChild;
 
 	//default
@@ -30,7 +37,6 @@ struct Node{
 			rightChild = right;
 	};
 };
-typedef Node code_tree;
 
 /*
  * 
@@ -43,6 +49,11 @@ class Parser{
 	//std::vector<> symbolTable;
 
 	public:
+
+	/*
+	 * Default Construtor
+	 */
+	Parser();
 	
 	/*
 	 * startup
@@ -50,9 +61,39 @@ class Parser{
 	void init(string filename);
 
 	/*
-	 * Get the file's code tree.
+	 * Get the next valid exp in order of: ...
 	 */
-	code_tree getCodeTree();
+	Node* getNextExp();
+
+	/*
+	 * Get next arthimetic expreesion
+	 */
+	Node* getNextArthExp();
+
+	//addition_and_subtraction
+	Node* checkAddSub();
+	//multi_div_mod
+	Node* checkMultiDiv();
+	//powers
+	Node* checkPower();
+	//Negation
+	Node* checkSign();
+	//int
+	Node* checkNum();
+	//group, (,)
+	Node* checkForGrouping();
+
+
+	/*
+	 *
+	 */
+	Node* getNextRatExp();
+
+	/*
+	 *
+	 */
+	Node* getNextLogExp();
+
 };
 
 #endif

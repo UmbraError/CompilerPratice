@@ -3,9 +3,9 @@ LIBARYFLAGS =
 CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses -g
 
 .PHONY:all
-all: compilerMain.bin
+all: ncc.bin
 
-compilerMain.bin: compilerMain.o lexicalAnalyzer.o token.o
+ncc.bin: ncc.o lexicalAnalyzer.o token.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 %.o: %.cpp
