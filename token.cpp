@@ -4,7 +4,7 @@ using std::string;
 
 Token::Token() {
 	type = "NULL";
-	text = "NULL";
+	text = "";
 	tokenID = 0;
 }
 

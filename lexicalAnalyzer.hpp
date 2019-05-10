@@ -29,6 +29,7 @@ class LexicalAnalyzer {
 	state currentState;
 	std::vector<char> storageStack;
 	std::vector<std::string> definedTokens;
+	std::vector<Token> peekStack;
 
        public:
 	/*
@@ -45,6 +46,11 @@ class LexicalAnalyzer {
 	 * Get the next token
 	 */
 	Token getToken();
+
+	/*
+	 * Look at the next token
+	 */
+	Token peekToken();
 
 	/*
 	 * Check the valid Token list for if there could be another longer valid

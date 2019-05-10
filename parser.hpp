@@ -1,44 +1,62 @@
 #ifndef __PARSER_HPP__
 #define __PARSER_HPP__
 
+#include <iostream>
 #include <string>
 #include <vector>
-//#include <iostream>
 //#include <fstream>
 
 #include "lexicalAnalyzer.hpp"
 #include "token.hpp"
 
 enum nodeType {
-	empty,
-	arthExp,
-	addSub,
-	multiDiv,
-	ratExp,
-	logExp,
-	con,
-	integar4
+	empty,        // no token yet
+	arthExp,      // Arthemetic expression
+	ratExp,       // Rational expression
+	logExp,       // Logical expression
+	negation,     // negative or postive sign
+	addSub,       // Plus or subtraction
+	multiDiv,     // Multiple, Divide, Mode
+	powers,       // exsponets, example: 5^2 = 25
+	constantInt,  // Consant Integar: example: 5
+	variable      // ???
 };
 
+/*
+ * The Node sturture for building a tree
+ * For this class it is meant for building a code tree
+ * Which will be used for ordered the generation of mechine code on: Intel x84
+ */
 struct Node {
 	nodeType myType;
 	Token myToken;
 	std::vector<Node> children;
 
+	Node() : myType(empty), myToken(), children({}) {}
 	Node(nodeType aType, Token aToken, std::vector<Node> kids = {})
 	    : myType(aType), myToken(aToken), children(kids) {}
+
+	operator bool() { return myType != empty; }
 };
 
+/*
+ * Giving a second name to Node.
+ * New name = Tree
+ */
 typedef Node Tree;
 
+std::ostream& operator<<(std::ostream&, Tree);
+
 /*
- *
+ * This class is for tieing together all methods for parsing data out of
+ * a tokenized file.
  */
 class Parser {
        private:
 	LexicalAnalyzer myLexicalAnalyzer;
 	std::vector<std::string> keywords;
 	// std::vector<> symbolTable;
+	Tree parseIntegerConstant();
 
        public:
 	/*
@@ -54,7 +72,14 @@ class Parser {
 	/*
 	 * Get the next valid exp in order of: ...
 	 */
-	Tree getNext();
+	Tree getNext() {
+		try {
+			return parseIntegerConstant();
+		} catch (std::string error) {
+			std::cout << "Parse ERROR: " << error << std::endl;
+			return Tree();
+		}
+	}
 };
 
 #endif

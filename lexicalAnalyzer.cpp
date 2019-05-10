@@ -82,6 +82,12 @@ void LexicalAnalyzer::init(string filename) {
  * Get the next token
  */
 Token LexicalAnalyzer::getToken() {
+	if (!peekStack.empty()) {
+		auto aToken = peekStack.back();
+		peekStack.pop_back();
+		return aToken;
+	}
+
 	char temp = '\0';
 	string currentToken = "";
 	currentState = NNULL;
@@ -489,4 +495,15 @@ bool LexicalAnalyzer::checkIfDefinedToken(string token) {
 /*
  *
  */
-string hexToUnicode(string hex) { return "Unicode Char"; }
+string hexToUnicode(string /*TODO: hex*/) { return "Unicode Char"; }
+
+/*
+ * Look at the next token
+ */
+Token LexicalAnalyzer::peekToken() {
+	if (peekStack.empty()) {
+		peekStack.push_back(getToken());
+		return peekStack.back();
+	} else
+		return peekStack.back();
+}

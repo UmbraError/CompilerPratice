@@ -2,6 +2,7 @@
 
 using std::string;
 using std::vector;
+using namespace std::string_literals;
 
 Parser::Parser() {}
 
@@ -13,78 +14,28 @@ void Parser::init(std::string filename) {
 	//	keywords.push_back("string");
 }
 
-Tree Parser::getNext() { return Node(empty, myLexicalAnalyzer.getToken()); }
+// Would you like to return parse errors as
+// A) error codes (The C way)
+// B) Thrown exceptions (The OO way)
 
-/*
- * Note: need to run init before this
- * Descrpition: Get next arthmatic Expression
- */
-
-/*
-Tree getNextArthExp() {
-
-
-
-        //	myNode.leftChild = Node * aChild();
-        //	checkAddSub(myNode.leftChild);
-
-
-          //Node myNode(arthExp);
-          //myNode.myToken = myLexicalAnalyzer.getToken();
-
-          //set default?
-          //myNode.myType = arthExp;
-
-
-          //Check addition
-          if(myNode.myToken.type == "ADD" || myNode.myToken.type == "MINUS")
-            //myNode.leftChild = Node* leftNode();
-            ;
-          //Check *,/,mod
-          else if()
-            ;
-          //Check powers
-          else if()
-            ;
-          //Check negation
-          else if()
-            ;
-          //Check integar
-          else if()
-            ;
-          //Check (, )
-          else if()
-            ;
-          //Check eof
-          else if()
-            ;
-          //throw error
-          else
-            ;
-
-
-
-        if ("+" || "-")
-                // add, subtract
-                ;
-        if (IDENT || "/" || "*")
-                // check if keyword
-                // if not check if declared
-                //
-                ;
-        if ()
-                // check for negation
-                ;
-        if (REAL || INTEGER)
-                ;
-        if ("(" || ")")
-                ;
-        if () return getNextArthExp();
-
-        if (myNode.myToken == EEOF) return myNode;
-
-
-
-        return myNode;
+Tree Parser::parseIntegerConstant() {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type != "INTEGER")
+		throw "Expected integer got: "s + aToken.type;
+	myLexicalAnalyzer.getToken();
+	return Node(constantInt, aToken, {});
 }
-*/
+
+std::ostream& operator<<(std::ostream& o, Node node) {
+	static int depth = 0;
+	for (int i = 0; i < depth; i++) {
+		o << "  ";
+	}
+	o << node.myToken.text << std::endl;  // print self
+	depth++;
+	for (auto& kid : node.children)
+		o << kid;
+	// print kids
+	depth--;
+	return o;
+}

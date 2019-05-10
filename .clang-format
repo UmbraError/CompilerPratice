@@ -1,4 +1,5 @@
 ---
+AllowShortLoopsOnASingleLine: 'false'
 BasedOnStyle: Google
 IndentWidth: '8'
 TabWidth: '8'

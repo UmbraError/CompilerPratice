@@ -16,9 +16,22 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
-	// iLexicalAnalyzer myLexicalAnalyzer;
+	// LexicalAnalyzer myLexicalAnalyzer;
 	Parser myParser;
 	myParser.init((string)argv[1]);
+
+	Tree tree;
+	while ((tree = myParser.getNext())) {
+		cout << "Code tree:" << endl;
+		cout << tree;
+		// get next arthmethic expression
+		// print tree
+
+		cout << "Code size: "
+		     << " bytes." << endl;
+		cout << "Code execution:" << endl;
+		// run the mechine code
+	}
 
 	//	Token token;
 

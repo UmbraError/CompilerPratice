@@ -1,6 +1,6 @@
 CXX         = clang++
 LIBARYFLAGS = 
-CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses -g $(SANS)
+CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses -Wno-sign-compare -fcolor-diagnostics -g $(SANS)
 
 .PHONY:all seg msan
 all:
