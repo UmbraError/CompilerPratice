@@ -20,6 +20,10 @@ struct program {
 	program() {}
 
 	program(int byte) { buffer.push_back((char)(byte)); }
+	program(std::vector<int> ops) {
+		for (auto op : ops)
+			buffer.push_back((char)op);
+	}
 
 	program operator+(program rhs) {
 		program ret(*this);

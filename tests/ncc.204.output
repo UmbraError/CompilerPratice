@@ -2,8 +2,8 @@ Code tree:
 statement block
   print
     mod
-      - (sub)
-        * (mult)
+      -
+        *
           1024
           1024
         1

@@ -1,6 +1,6 @@
 Code tree:
-+ (add)
-  + (add)
++
+  +
     ^ (pow)
       3
       2
@@ -8,7 +8,7 @@ Code tree:
       2
       2
   ^ (pow)
-    - (neg)
+    -
       5
     3
 Code size: 55 bytes.
@@ -36,19 +36,19 @@ Code execution:
 2
 
 Code tree:
-/ (div)
-  * (mult)
+/
+  *
     5
     ^ (pow)
       3
-      * (mult)
-        - (neg)
+      *
+        -
           6
-        - (neg)
+        -
           2
   ^ (pow)
     2
-    + (add)
+    +
       1
       1
 Code size: 75 bytes.

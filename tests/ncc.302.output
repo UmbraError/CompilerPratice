@@ -21,11 +21,11 @@ statement block
 
   <-
     variable: a
-    - (neg)
+    -
       3
   <-
     variable: b
-    - (neg)
+    -
       4
 Code size: 295 bytes.
 Code execution:

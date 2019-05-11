@@ -46,7 +46,7 @@ statement block
               19
           <-
             variable: b
-            / (div)
+            /
               variable: year
               100
           <-
@@ -56,7 +56,7 @@ statement block
               100
           <-
             variable: d
-            / (div)
+            /
               variable: b
               4
           <-
@@ -66,16 +66,16 @@ statement block
               4
           <-
             variable: f
-            / (div)
-              + (add)
+            /
+              +
                 variable: b
                 8
               25
           <-
             variable: g
-            / (div)
-              + (add)
-                - (sub)
+            /
+              +
+                -
                   variable: b
                   variable: f
                 1
@@ -83,11 +83,11 @@ statement block
           <-
             variable: h
             mod
-              + (add)
-                - (sub)
-                  - (sub)
-                    + (add)
-                      * (mult)
+              +
+                -
+                  -
+                    +
+                      *
                         19
                         variable: a
                       variable: b
@@ -97,7 +97,7 @@ statement block
               30
           <-
             variable: i
-            / (div)
+            /
               variable: c
               4
           <-
@@ -108,15 +108,15 @@ statement block
           <-
             variable: l
             mod
-              - (sub)
-                - (sub)
-                  + (add)
-                    + (add)
+              -
+                -
+                  +
+                    +
                       32
-                      * (mult)
+                      *
                         2
                         variable: e
-                    * (mult)
+                    *
                       2
                       variable: i
                   variable: h
@@ -124,26 +124,26 @@ statement block
               7
           <-
             variable: m
-            / (div)
-              + (add)
-                + (add)
+            /
+              +
+                +
                   variable: a
-                  * (mult)
+                  *
                     11
                     variable: h
-                * (mult)
+                *
                   22
                   variable: l
               451
           <-
             variable: n
-            / (div)
-              + (add)
-                - (sub)
-                  + (add)
+            /
+              +
+                -
+                  +
                     variable: h
                     variable: l
-                  * (mult)
+                  *
                     7
                     variable: m
                 114
@@ -151,12 +151,12 @@ statement block
           <-
             variable: p
             mod
-              + (add)
-                - (sub)
-                  + (add)
+              +
+                -
+                  +
                     variable: h
                     variable: l
-                  * (mult)
+                  *
                     7
                     variable: m
                 114
@@ -165,7 +165,7 @@ statement block
             Easter Sunday
             variable: year
              is
-            + (add)
+            +
               variable: p
               1
           if
@@ -195,7 +195,7 @@ statement block
         variable: year
       <-
         variable: i
-        + (add)
+        +
           variable: i
           1
   print

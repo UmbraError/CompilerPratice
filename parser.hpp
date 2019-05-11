@@ -58,6 +58,9 @@ class Parser {
 	// std::vector<> symbolTable;
 	Tree parseIntegerConstant();
 	Tree parseParenExper();
+	Tree parseNumericValue();
+	Tree parseAddAndSubtractPrime(Tree);
+	Tree parseAddAndSubtract();
 	Tree parseExpression();
 
        public:

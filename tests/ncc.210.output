@@ -7,7 +7,7 @@ statement block
     variable: a
   print
     a doubled:
-    * (mult)
+    *
       2
       variable: a
 Code size: 121 bytes.

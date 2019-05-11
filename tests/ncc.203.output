@@ -1,11 +1,11 @@
 Code tree:
 statement block
   print
-    * (mult)
-      + (add)
+    *
+      +
         3
         4
-      + (add)
+      +
         8
         11
 Code size: 46 bytes.

@@ -79,11 +79,11 @@ statement block
 
   <-
     variable: a
-    - (neg)
+    -
       3
   <-
     variable: b
-    - (neg)
+    -
       4
   print
     Is
@@ -159,7 +159,7 @@ statement block
     3
   <-
     variable: b
-    - (neg)
+    -
       4
   print
     Is

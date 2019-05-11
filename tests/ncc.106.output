@@ -1,21 +1,21 @@
 Code tree:
-- (sub)
-  * (mult)
+-
+  *
     6
     2
-  * (mult)
+  *
     5
-    - (neg)
+    -
       4
 Code size: 45 bytes.
 Code execution:
 32
 
 Code tree:
-+ (add)
-  + (add)
++
+  +
     1
-    * (mult)
+    *
       2
       3
   4
@@ -24,11 +24,11 @@ Code execution:
 11
 
 Code tree:
-* (mult)
-  + (add)
+*
+  +
     1
     2
-  + (add)
+  +
     3
     4
 Code size: 41 bytes.
@@ -36,10 +36,10 @@ Code execution:
 21
 
 Code tree:
-+ (add)
++
   5
   mod
-    * (mult)
+    *
       7
       100
     255
@@ -50,8 +50,8 @@ Code execution:
 Code tree:
 mod
   mod
-    * (mult)
-      - (neg)
+    *
+      -
         3
       256
     255

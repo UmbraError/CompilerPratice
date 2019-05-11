@@ -39,7 +39,7 @@ Tree Parser::parseParenExper() {
 	return insideParen;
 }
 
-Tree Parser::parseExpression() {
+Tree Parser::parseNumericValue() {
 	// check if int or ( and then call
 	auto aToken = myLexicalAnalyzer.peekToken();
 	if (aToken.type == "LPAREN")
@@ -49,6 +49,31 @@ Tree Parser::parseExpression() {
 	else
 		throw "Expected an int or a '(' got: "s + aToken.type;
 }
+
+Tree Parser::parseAddAndSubtractPrime(Tree accumulator) {
+	// + number
+	// - number
+	//
+	// 4 - 3 - 2 - 1
+	//
+	// -(- (4 3) 2)
+
+	// if + or - get value and make tree with accumlat
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type != "PLUS" && aToken.type != "MINUS") return accumulator;
+	myLexicalAnalyzer.getToken();
+	auto rightOperand = parseNumericValue();
+	return parseAddAndSubtractPrime(
+	    Node(addSub, aToken, {accumulator, rightOperand}));
+}
+
+Tree Parser::parseAddAndSubtract() {
+	// 3  prime
+	auto leftOperand = parseNumericValue();
+	return parseAddAndSubtractPrime(leftOperand);
+}
+
+Tree Parser::parseExpression() { return parseAddAndSubtract(); }
 
 std::ostream& operator<<(std::ostream& o, Node node) {
 	static int depth = 0;

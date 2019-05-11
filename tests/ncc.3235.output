@@ -24,7 +24,7 @@ statement block
       variable: thousands
       <-
         variable: thousands
-        / (div)
+        /
           variable: number
           1000
       <-
@@ -53,7 +53,7 @@ statement block
       variable: hundreds
       <-
         variable: hundreds
-        / (div)
+        /
           variable: number
           100
       <-
@@ -118,7 +118,7 @@ statement block
       variable: tens
       <-
         variable: tens
-        / (div)
+        /
           variable: number
           10
       <-

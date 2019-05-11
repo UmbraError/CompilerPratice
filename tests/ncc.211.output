@@ -13,7 +13,7 @@ statement block
 
   <-
     variable: b
-    * (mult)
+    *
       2
       variable: a
   print

@@ -11,7 +11,7 @@ statement block
 
       <-
         variable: i
-        + (add)
+        +
           variable: i
           1
   print

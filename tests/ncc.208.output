@@ -7,7 +7,7 @@ statement block
 
   print
     The value of 3x3 is
-    * (mult)
+    *
       3
       3
 
