@@ -57,6 +57,8 @@ class Parser {
 	std::vector<std::string> keywords;
 	// std::vector<> symbolTable;
 	Tree parseIntegerConstant();
+	Tree parseParenExper();
+	Tree parseExpression();
 
        public:
 	/*
@@ -75,7 +77,7 @@ class Parser {
 	Tree getNext() {
 		if (myLexicalAnalyzer.peekToken().type == "EOF") return Tree();
 		try {
-			return parseIntegerConstant();
+			return parseExpression();
 		} catch (std::string error) {
 			std::cout << "Parse ERROR: " << error << std::endl;
 			return Tree();

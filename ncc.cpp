@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 		program prog = machineCodeGenerator(tree);
 
 		cout << "Code size: " << prog.size() << " bytes." << endl;
-		cout << "Code execution:" << endl << prog();
+		cout << "Code execution:" << endl << prog() << endl << endl;
 		// run the mechine code
 	}
 

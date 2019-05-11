@@ -26,6 +26,30 @@ Tree Parser::parseIntegerConstant() {
 	return Node(constantInt, aToken, {});
 }
 
+Tree Parser::parseParenExper() {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type != "LPAREN")
+		throw "Expected LPAREN got: "s + aToken.type;
+	myLexicalAnalyzer.getToken();
+	auto insideParen = parseExpression();
+	aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type != "RPAREN")
+		throw "Expected RPAREN got: "s + aToken.type;
+	myLexicalAnalyzer.getToken();
+	return insideParen;
+}
+
+Tree Parser::parseExpression() {
+	// check if int or ( and then call
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type == "LPAREN")
+		return parseParenExper();
+	else if (aToken.type == "INTEGER")
+		return parseIntegerConstant();
+	else
+		throw "Expected an int or a '(' got: "s + aToken.type;
+}
+
 std::ostream& operator<<(std::ostream& o, Node node) {
 	static int depth = 0;
 	for (int i = 0; i < depth; i++) {
