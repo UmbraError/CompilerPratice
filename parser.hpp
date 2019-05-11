@@ -73,6 +73,7 @@ class Parser {
 	 * Get the next valid exp in order of: ...
 	 */
 	Tree getNext() {
+		if (myLexicalAnalyzer.peekToken().type == "EOF") return Tree();
 		try {
 			return parseIntegerConstant();
 		} catch (std::string error) {

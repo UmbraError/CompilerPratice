@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "MachineCodeGenerator.cpp"
+#include "MachineCodeGenerator.hpp"
 #include "lexicalAnalyzer.hpp"
 #include "parser.hpp"
 #include "token.hpp"
@@ -24,12 +24,10 @@ int main(int argc, char** argv) {
 	while ((tree = myParser.getNext())) {
 		cout << "Code tree:" << endl;
 		cout << tree;
-		// get next arthmethic expression
-		// print tree
+		program prog = machineCodeGenerator(tree);
 
-		cout << "Code size: "
-		     << " bytes." << endl;
-		cout << "Code execution:" << endl;
+		cout << "Code size: " << prog.size() << " bytes." << endl;
+		cout << "Code execution:" << endl << prog();
 		// run the mechine code
 	}
 
