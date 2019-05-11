@@ -14,7 +14,7 @@ enum nodeType {
 	arthExp,      // Arthemetic expression
 	ratExp,       // Rational expression
 	logExp,       // Logical expression
-	negation,     // negative or postive sign
+	unary,        // negative or postive sign
 	addSub,       // Plus or subtraction
 	multiDiv,     // Multiple, Divide, Mode
 	powers,       // exsponets, example: 5^2 = 25
@@ -59,6 +59,10 @@ class Parser {
 	Tree parseIntegerConstant();
 	Tree parseParenExper();
 	Tree parseNumericValue();
+	Tree parseUnaryOperator();
+	Tree parsePow();
+	Tree parseMultAndDivPrime(Tree);
+	Tree parseMultAndDiv();
 	Tree parseAddAndSubtractPrime(Tree);
 	Tree parseAddAndSubtract();
 	Tree parseExpression();

@@ -50,6 +50,45 @@ Tree Parser::parseNumericValue() {
 		throw "Expected an int or a '(' got: "s + aToken.type;
 }
 
+Tree Parser::parseUnaryOperator() {
+	// - 4
+	// + 4
+	// 4
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if ((aToken.type == "MINUS") || (aToken.type == "PLUS")) {
+		myLexicalAnalyzer.getToken();
+		return Node(unary, aToken, {parseNumericValue()});
+	} else
+		return parseNumericValue();
+}
+
+Tree Parser::parsePow() {
+	// 4 ^ 5
+	// 4 ^ 5 ^ 6
+	auto leftOperand = parseUnaryOperator();
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type != "EXP") return leftOperand;
+	myLexicalAnalyzer.getToken();
+	auto rightOperand = parsePow();
+	return Node(powers, aToken, {leftOperand, rightOperand});
+}
+
+Tree Parser::parseMultAndDivPrime(Tree accumulator) {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if ((aToken.type != "MULT") && (aToken.type != "DIV") &&
+	    (aToken.type != "IDENT" || aToken.text != "mod"))
+		return accumulator;
+	myLexicalAnalyzer.getToken();
+	auto rightOperand = parsePow();
+	return parseMultAndDivPrime(
+	    Node(multiDiv, aToken, {accumulator, rightOperand}));
+}
+
+Tree Parser::parseMultAndDiv() {
+	auto leftOperand = parsePow();
+	return parseMultAndDivPrime(leftOperand);
+}
+
 Tree Parser::parseAddAndSubtractPrime(Tree accumulator) {
 	// + number
 	// - number
@@ -60,16 +99,17 @@ Tree Parser::parseAddAndSubtractPrime(Tree accumulator) {
 
 	// if + or - get value and make tree with accumlat
 	auto aToken = myLexicalAnalyzer.peekToken();
-	if (aToken.type != "PLUS" && aToken.type != "MINUS") return accumulator;
+	if ((aToken.type != "PLUS") && (aToken.type != "MINUS"))
+		return accumulator;
 	myLexicalAnalyzer.getToken();
-	auto rightOperand = parseNumericValue();
+	auto rightOperand = parseMultAndDiv();
 	return parseAddAndSubtractPrime(
 	    Node(addSub, aToken, {accumulator, rightOperand}));
 }
 
 Tree Parser::parseAddAndSubtract() {
 	// 3  prime
-	auto leftOperand = parseNumericValue();
+	auto leftOperand = parseMultAndDiv();
 	return parseAddAndSubtractPrime(leftOperand);
 }
 

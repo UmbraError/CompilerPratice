@@ -213,9 +213,11 @@ Token LexicalAnalyzer::getToken() {
 					}
 
 					if (duplicate >= 1) {
-						if (storageStack.empty())
+						if (storageStack.empty()) {
 							inFile >> temp;
-						else {
+							if (inFile.eof())
+								goto defined_eof;
+						} else {
 							temp =
 							    storageStack.back();
 							storageStack.pop_back();
@@ -235,6 +237,7 @@ Token LexicalAnalyzer::getToken() {
 							currentToken += temp;
 
 					} else if (inFile.eof()) {
+					defined_eof:
 						if (lastPerfectMatch >= 0)
 							return Token(
 							    currentToken,

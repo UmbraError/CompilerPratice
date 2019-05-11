@@ -7,7 +7,7 @@ Code tree:
     5
     -
       4
-Code size: 45 bytes.
+Code size: 37 bytes.
 Code execution:
 32
 
@@ -19,7 +19,7 @@ Code tree:
       2
       3
   4
-Code size: 41 bytes.
+Code size: 34 bytes.
 Code execution:
 11
 
@@ -31,7 +31,7 @@ Code tree:
   +
     3
     4
-Code size: 41 bytes.
+Code size: 34 bytes.
 Code execution:
 21
 
@@ -43,7 +43,7 @@ Code tree:
       7
       100
     255
-Code size: 42 bytes.
+Code size: 41 bytes.
 Code execution:
 195
 
@@ -56,6 +56,7 @@ mod
       256
     255
   10
-Code size: 47 bytes.
+Code size: 50 bytes.
 Code execution:
--3
+3
+
