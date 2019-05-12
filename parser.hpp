@@ -22,7 +22,9 @@ enum nodeType {
 	variable,     // ???
 	builtinFunc,  // hmmmmm?
 	block,        // PROFIT!
-	pstring       // some of my phavorite things!
+	pstring,      // some of my phavorite things!
+	declare,      // my independence!
+	assignment    // number 3 is a bit late
 };
 
 /*
@@ -70,6 +72,10 @@ class Parser {
 	Tree parseAddAndSubtract();
 	Tree parseArithmeticExpression();
 	Tree parseFunctionPrint();
+	Tree parseFunctionRead();
+	Tree parseDeclaration();
+	Tree parseAssignment();
+	Tree parseStatement();
 	Tree parseStatementBlock();
 
        public:

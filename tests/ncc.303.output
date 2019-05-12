@@ -1,305 +1,305 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
+  a
+  b
   <-
-    variable: a
+    a
     3
   <-
-    variable: b
+    b
     4
   print
     Is
-    variable: a
+    a
      <
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      <=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      =
-    variable: b
+    b
     ?
     =
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      ~=
-    variable: b
+    b
     ?
     ~=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
 
 
   <-
-    variable: a
+    a
     -
       3
   <-
-    variable: b
+    b
     -
       4
   print
     Is
-    variable: a
+    a
      <
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      <=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      =
-    variable: b
+    b
     ?
     =
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      ~=
-    variable: b
+    b
     ?
     ~=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
 
 
   <-
-    variable: a
+    a
     3
   <-
-    variable: b
+    b
     -
       4
   print
     Is
-    variable: a
+    a
      <
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      <=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      =
-    variable: b
+    b
     ?
     =
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      ~=
-    variable: b
+    b
     ?
     ~=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
 
 
   <-
-    variable: a
+    a
     3
   <-
-    variable: b
+    b
     3
   print
     Is
-    variable: a
+    a
      <
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      <=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >
-    variable: b
+    b
     ?
     <
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      >=
-    variable: b
+    b
     ?
     <=
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      =
-    variable: b
+    b
     ?
     =
-      variable: a
-      variable: b
+      a
+      b
 
 
   print
     Is
-    variable: a
+    a
      ~=
-    variable: b
+    b
     ?
     ~=
-      variable: a
-      variable: b
+      a
+      b
 
 
 Code size: 4899 bytes.

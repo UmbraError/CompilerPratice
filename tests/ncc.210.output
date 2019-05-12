@@ -1,16 +1,15 @@
 Code tree:
 statement block
-  variable: a
+  a
   print
     Please input a value:
   read
-    variable: a
+    a
   print
     a doubled:
     *
       2
-      variable: a
-Code size: 121 bytes.
+      a
+Code size: 94 bytes.
 Code execution:
-Please input a value: 234987
-a doubled: 469974
+Please input a value: a doubled: 469974

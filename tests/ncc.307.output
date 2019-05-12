@@ -1,35 +1,35 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
-  variable: c
-  variable: d
+  a
+  b
+  c
+  d
   print
     The following expression should be true if exactly two of the four
 
     variables have the same value.
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
+    c
     35
   <-
-    variable: d
+    d
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -38,69 +38,69 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: a
+    a
     25
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -109,69 +109,69 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: a
+    a
     35
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -180,69 +180,69 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: a
+    a
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -251,72 +251,72 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     35
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -325,69 +325,69 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: b
+    b
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -396,72 +396,72 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
+    c
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -470,75 +470,75 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
-    variable: a
+    b
+    a
   <-
-    variable: c
-    variable: b
+    c
+    b
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -547,72 +547,72 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: c
+    c
     35
   <-
-    variable: d
-    variable: a
+    d
+    a
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -621,72 +621,72 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
-    variable: d
+    c
+    d
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -695,72 +695,72 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   <-
-    variable: b
-    variable: c
+    b
+    c
   <-
-    variable: a
+    a
     25
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       or
@@ -769,55 +769,55 @@ statement block
             or
               or
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: c
+                  b
+                  c
               =
-                variable: a
-                variable: c
+                a
+                c
             =
-              variable: a
-              variable: d
+              a
+              d
           =
-            variable: b
-            variable: d
+            b
+            d
         =
-          variable: c
-          variable: d
+          c
+          d
       not
         or
           or
             or
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: a
-                  variable: c
+                  a
+                  c
               and
                 =
-                  variable: a
-                  variable: b
+                  a
+                  b
                 =
-                  variable: b
-                  variable: d
+                  b
+                  d
             and
               =
-                variable: b
-                variable: c
+                b
+                c
               =
-                variable: b
-                variable: d
+                b
+                d
           and
             =
-              variable: a
-              variable: c
+              a
+              c
             =
-              variable: c
-              variable: d
+              c
+              d
 
 
   print
@@ -826,26 +826,26 @@ statement block
     even though they are calculated differently.
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
+    c
     35
   <-
-    variable: d
+    d
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -855,68 +855,68 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: a
+    a
     25
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -926,68 +926,68 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: a
+    a
     35
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -997,68 +997,68 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: a
+    a
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1068,71 +1068,71 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     35
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1142,68 +1142,68 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: b
+    b
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1213,71 +1213,71 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
+    c
     45
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1287,74 +1287,74 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
-    variable: a
+    b
+    a
   <-
-    variable: c
-    variable: b
+    c
+    b
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1364,71 +1364,71 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: c
+    c
     35
   <-
-    variable: d
-    variable: a
+    d
+    a
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1438,71 +1438,71 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: b
+    b
     25
   <-
-    variable: c
-    variable: d
+    c
+    d
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1512,71 +1512,71 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
   <-
-    variable: b
-    variable: c
+    b
+    c
   <-
-    variable: a
+    a
     25
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
       c:
-    variable: c
+    c
       d:
-    variable: d
+    d
       expr:
     and
       not
@@ -1586,54 +1586,54 @@ statement block
               and
                 and
                   ~=
-                    variable: a
-                    variable: b
+                    a
+                    b
                   ~=
-                    variable: b
-                    variable: c
+                    b
+                    c
                 ~=
-                  variable: a
-                  variable: c
+                  a
+                  c
               ~=
-                variable: a
-                variable: d
+                a
+                d
             ~=
-              variable: b
-              variable: d
+              b
+              d
           ~=
-            variable: c
-            variable: d
+            c
+            d
       and
         and
           and
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: a
-                variable: c
+                a
+                c
             or
               ~=
-                variable: a
-                variable: b
+                a
+                b
               ~=
-                variable: b
-                variable: d
+                b
+                d
           or
             ~=
-              variable: b
-              variable: c
+              b
+              c
             ~=
-              variable: b
-              variable: d
+              b
+              d
         or
           ~=
-            variable: a
-            variable: c
+            a
+            c
           ~=
-            variable: c
-            variable: d
+            c
+            d
 
 
 Code size: 17503 bytes.

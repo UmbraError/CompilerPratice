@@ -1,18 +1,18 @@
 Code tree:
 statement block
-  variable: i
+  i
   while
     <
-      variable: i
+      i
       10
     statement block
       print
-        variable: i
+        i
 
       <-
-        variable: i
+        i
         +
-          variable: i
+          i
           1
   print
 

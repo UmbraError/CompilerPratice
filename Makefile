@@ -1,6 +1,6 @@
 CXX         = clang++
 LIBARYFLAGS = 
-#NOPEWARN    = -Wno-sign-compare -Wno-return-type -Wno-dangling-else
+NOPEWARN    = -Wno-sign-compare -Wno-return-type -Wno-dangling-else
 CXXFLAGS    = -std=c++1z -Wall -Wextra -Wparentheses $(NOPEWARN) -fcolor-diagnostics -g $(SANS)
 
 .PHONY:all seg msan

@@ -1,20 +1,20 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
-  variable: c
-  variable: d
-  variable: e
-  variable: f
-  variable: g
-  variable: h
-  variable: i
-  variable: k
-  variable: l
-  variable: m
-  variable: n
-  variable: p
-  variable: year
+  a
+  b
+  c
+  d
+  e
+  f
+  g
+  h
+  i
+  k
+  l
+  m
+  n
+  p
+  year
   print
     This program calculates the date of Easter for the Gregorian calendar
 
@@ -25,63 +25,63 @@ statement block
   print
     Please enter a year (< 0 to quit):
   read
-    variable: year
+    year
   while
     <=
-      variable: year
+      year
       0
     statement block
       if
         <=
-          variable: year
+          year
           1583
         print
           Inavlid year.  Must be greater than 1582.
 
         statement block
           <-
-            variable: a
+            a
             mod
-              variable: year
+              year
               19
           <-
-            variable: b
+            b
             /
-              variable: year
+              year
               100
           <-
-            variable: c
+            c
             mod
-              variable: year
+              year
               100
           <-
-            variable: d
+            d
             /
-              variable: b
+              b
               4
           <-
-            variable: e
+            e
             mod
-              variable: b
+              b
               4
           <-
-            variable: f
+            f
             /
               +
-                variable: b
+                b
                 8
               25
           <-
-            variable: g
+            g
             /
               +
                 -
-                  variable: b
-                  variable: f
+                  b
+                  f
                 1
               3
           <-
-            variable: h
+            h
             mod
               +
                 -
@@ -89,24 +89,24 @@ statement block
                     +
                       *
                         19
-                        variable: a
-                      variable: b
-                    variable: d
-                  variable: g
+                        a
+                      b
+                    d
+                  g
                 15
               30
           <-
-            variable: i
+            i
             /
-              variable: c
+              c
               4
           <-
-            variable: k
+            k
             mod
-              variable: c
+              c
               4
           <-
-            variable: l
+            l
             mod
               -
                 -
@@ -115,62 +115,62 @@ statement block
                       32
                       *
                         2
-                        variable: e
+                        e
                     *
                       2
-                      variable: i
-                  variable: h
-                variable: k
+                      i
+                  h
+                k
               7
           <-
-            variable: m
+            m
             /
               +
                 +
-                  variable: a
+                  a
                   *
                     11
-                    variable: h
+                    h
                 *
                   22
-                  variable: l
+                  l
               451
           <-
-            variable: n
+            n
             /
               +
                 -
                   +
-                    variable: h
-                    variable: l
+                    h
+                    l
                   *
                     7
-                    variable: m
+                    m
                 114
               31
           <-
-            variable: p
+            p
             mod
               +
                 -
                   +
-                    variable: h
-                    variable: l
+                    h
+                    l
                   *
                     7
-                    variable: m
+                    m
                 114
               31
           print
             Easter Sunday
-            variable: year
+            year
              is
             +
-              variable: p
+              p
               1
           if
             =
-              variable: n
+              n
               3
             print
                March.
@@ -178,7 +178,7 @@ statement block
 
             if
               =
-                variable: n
+                n
                 4
               print
                  April.
@@ -186,17 +186,17 @@ statement block
 
               print
                 Inavlid month:
-                variable: m
+                m
 
 
       print
         Please enter a year (< 0 to quit):
       read
-        variable: year
+        year
       <-
-        variable: i
+        i
         +
-          variable: i
+          i
           1
   print
     Exiting...

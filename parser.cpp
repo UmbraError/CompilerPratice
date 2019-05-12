@@ -46,7 +46,10 @@ Tree Parser::parseNumericValue() {
 		return parseParenExper();
 	else if (aToken.type == "INTEGER")
 		return parseIntegerConstant();
-	else
+	else if (aToken.type == "IDENT") {
+		myLexicalAnalyzer.getToken();
+		return Node(variable, aToken, {});
+	} else
 		throw "Expected an int or a '(' got: "s + aToken.type;
 }
 
@@ -148,9 +151,96 @@ Tree Parser::parseFunctionPrint() {
 	return Node(builtinFunc, printToken, parameters);
 }
 
+Tree Parser::parseFunctionRead() {
+	auto readToken = myLexicalAnalyzer.peekToken();
+	// read
+	if (readToken.type != "IDENT" || readToken.text != "read")
+		throw "Expected read got: "s + readToken.type + " " +
+		    readToken.text;
+	myLexicalAnalyzer.getToken();
+	//(
+	auto lparenToken = myLexicalAnalyzer.peekToken();
+	if (lparenToken.type != "LPAREN")
+		throw "Expected '(' got: "s + lparenToken.type;
+	myLexicalAnalyzer.getToken();
+
+	// varname
+	auto varToken = myLexicalAnalyzer.peekToken();
+	if (varToken.type != "IDENT")
+		throw "Expected variable name got: "s + varToken.type;
+	myLexicalAnalyzer.getToken();
+	//)
+	auto rparenToken = myLexicalAnalyzer.peekToken();
+	if (rparenToken.type != "RPAREN")
+		throw "Expected ')' got: "s + rparenToken.type;
+	myLexicalAnalyzer.getToken();
+
+	//;
+	auto semiToken = myLexicalAnalyzer.peekToken();
+	if (semiToken.type != "SEMICOLON")
+		throw "Expected ';' got: "s + semiToken.type;
+	myLexicalAnalyzer.getToken();
+	return Node(builtinFunc, readToken, {Node(variable, varToken, {})});
+}
+
+Tree Parser::parseDeclaration() {
+	auto typeToken = myLexicalAnalyzer.peekToken();
+	if (typeToken.type != "IDENT" || typeToken.text != "int4")
+		throw "Expected int4 in declaration got: "s + typeToken.type +
+		    " " + typeToken.text;
+	myLexicalAnalyzer.getToken();
+	// IDENT: aname
+	auto varToken = myLexicalAnalyzer.peekToken();
+	if (varToken.type != "IDENT")
+		throw "Expected IDENT in declaration got: "s + varToken.type;
+	myLexicalAnalyzer.getToken();
+	// SEMICOLON
+	auto semiToken = myLexicalAnalyzer.peekToken();
+	if (semiToken.type != "SEMICOLON")
+		throw "Expected ';' int declaration got: "s + typeToken.type;
+	myLexicalAnalyzer.getToken();
+
+	return Node(declare, varToken, {});
+}
+
+Tree Parser::parseAssignment() {
+	// a <- arimet_value ;
+	auto varToken = myLexicalAnalyzer.peekToken();
+	if (varToken.type != "IDENT")
+		throw "Exptected variable name got: "s + varToken.type;
+	myLexicalAnalyzer.getToken();
+	auto assignToken = myLexicalAnalyzer.peekToken();
+	if (assignToken.type != "ASSIGN")
+		throw "Expected '<-' got: "s + assignToken.type;
+	myLexicalAnalyzer.getToken();
+	auto valTree = parseArithmeticExpression();
+	auto semiToken = myLexicalAnalyzer.peekToken();
+	if (semiToken.type != "SEMICOLON")
+		throw "Expected ';' got: "s + semiToken.type;
+	myLexicalAnalyzer.getToken();
+	return Node(assignment, assignToken,
+	            {Node(variable, varToken, {}), valTree});
+}
+
+Tree Parser::parseStatement() {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type == "IDENT" && aToken.text == "print")
+		return parseFunctionPrint();
+	if (aToken.type == "IDENT" && aToken.text == "int4")
+		return parseDeclaration();
+	if (aToken.type == "IDENT" && aToken.text == "read")
+		return parseFunctionRead();
+	if (aToken.type == "IDENT")  // we don't know the var to check
+		return parseAssignment();
+	throw "Expected print, declaration, or read got: "s + aToken.type +
+	    " " + aToken.text;
+}
+
 Tree Parser::parseStatementBlock() {
-	return Node(block, {"statement block", "", NNULL},
-	            {parseFunctionPrint()});
+	vector<Node> statements;
+	while (myLexicalAnalyzer.peekToken().type != "EOF")
+		statements.push_back(parseStatement());
+	return Node(block, {"statement block", "", NNULL}, statements);
 }
 
 std::ostream& operator<<(std::ostream& o, Node node) {

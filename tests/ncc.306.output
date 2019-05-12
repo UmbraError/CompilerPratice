@@ -12,22 +12,22 @@ statement block
       false
 
 
-  variable: a
-  variable: b
+  a
+  b
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     25
   print
     a:
-    variable: a
+    a
 
 
   print
     b:
-    variable: b
+    b
 
 
   print
@@ -35,11 +35,11 @@ statement block
     and
       not
         <
-          variable: a
+          a
           10
       not
         <
-          variable: b
+          b
           10
 
 
@@ -48,11 +48,11 @@ statement block
     and
       not
         <
-          variable: a
+          a
           20
       not
         <
-          variable: b
+          b
           10
 
 
@@ -61,11 +61,11 @@ statement block
     and
       not
         <
-          variable: a
+          a
           10
       not
         <
-          variable: b
+          b
           30
 
 
@@ -74,11 +74,11 @@ statement block
     and
       not
         <
-          variable: a
+          a
           20
       not
         <
-          variable: b
+          b
           30
 
 

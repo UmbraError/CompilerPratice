@@ -8,6 +8,11 @@ using namespace std::string_literals;
 namespace Fun {
 void print_int(int x) { std::cout << x; }
 void print_str(char* s) { std::cout << s; }
+int read_int() {
+	int x;
+	std::cin >> x;
+	return x;
+}
 }  // namespace Fun
 
 enum Reg { eax, ebx, ecx, edx, rsi, rdi, rax };
@@ -39,8 +44,8 @@ program MOV(Reg reg, char const* cstr) {
 	}
 }
 
-template <typename T>
-program MOV(Reg reg, void (*fp)(T)) {
+template <typename T, typename... ARGS>
+program MOV(Reg reg, T (*fp)(ARGS...)) {
 	switch (reg) {
 		case rsi:
 			return program({0x48, 0xbe}) +
@@ -76,6 +81,26 @@ program MOV(Reg reg1, Reg reg2) {
 			}
 		default:
 			throw "Unknown Register 1 for MOV(r,r)"s;
+	}
+}
+
+program STORAGE(int location, Reg reg) {
+	switch (reg) {
+		case eax:
+			return {{0x89, 0x45, 0xff & (-4 * (location + 1))}};
+		default:
+			throw "Unknown register in STORAGE(i,r)"s;
+	}
+	// mov eax,[ebp-4*d]
+}
+
+program GET_VAR(Reg reg, int location) {
+	switch (reg) {
+		case eax:
+			return {{0x8b, 0x45, 0xff & (-4 * (location + 1))}};
+
+		default:
+			throw "Unknown register in GET_VAR(r,i)"s;
 	}
 }
 
@@ -183,11 +208,34 @@ program PRINT_INT() {
 	return MOV(rdi, rax) + MOV(rsi, Fun::print_int) + CALL(rsi);
 }
 
+program READ_INT() { return MOV(rsi, Fun::read_int) + CALL(rsi); }
+
 program PRINT_STRING() { return MOV(rsi, Fun::print_str) + CALL(rsi); }
 
 program RET() { return program(0xC3); }
 
-program nodeMachineCode(Tree myTree) {
+struct Symbol {
+	// std::string type; // always int4
+	std::string name;
+	int location;  // offset from the basepointer
+};
+
+struct Enviroment {
+	std::vector<Symbol> symbolTable;
+	program cleanup() {
+		program ret;
+		for (auto symbol : symbolTable)
+			ret += POP(ecx);
+		return ret;
+	}
+	int find(std::string varName) {
+		for (auto symbol : symbolTable)
+			if (symbol.name == varName) return symbol.location;
+		throw "Unknown variable name was read: "s + varName;
+	}
+};
+
+program nodeMachineCode(Tree myTree, Enviroment& island) {
 	// storage of strings so that the pointer does not disappear.
 	static std::vector<std::unique_ptr<std::string>> stringTable;
 
@@ -197,54 +245,77 @@ program nodeMachineCode(Tree myTree) {
 		stringTable.push_back(
 		    std::make_unique<std::string>(myTree.myToken.text));
 		return MOV(rdi, stringTable.back()->c_str());
+	} else if (myTree.myType == variable)
+		return GET_VAR(eax, island.find(myTree.myToken.text));
+	else if (myTree.myType == declare) {
+		island.symbolTable.push_back(
+		    {myTree.myToken.text, (int)island.symbolTable.size()});
+		return MOV(eax, 0) + PUSH(eax);  // make space on stack
+		// TODO: we assume there are to temps on the stack
 	} else if (myTree.myType == addSub)
 		if (myTree.myToken.text == "+")
-			return nodeMachineCode(myTree.children[0]) + PUSH(eax) +
-			       nodeMachineCode(myTree.children[1]) + POP(ecx) +
-			       ADD(eax, ecx);
+			return nodeMachineCode(myTree.children[0], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[1], island) +
+			       POP(ecx) + ADD(eax, ecx);
 		else
-			return nodeMachineCode(myTree.children[1]) + PUSH(eax) +
-			       nodeMachineCode(myTree.children[0]) + POP(ecx) +
-			       SUB(eax, ecx);
+			return nodeMachineCode(myTree.children[1], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[0], island) +
+			       POP(ecx) + SUB(eax, ecx);
 	else if (myTree.myType == unary)
 		if (myTree.myToken.text == "-")
-			return nodeMachineCode(myTree.children[0]) + NEG(eax);
+			return nodeMachineCode(myTree.children[0], island) +
+			       NEG(eax);
 		else
-			return nodeMachineCode(myTree.children[0]);
+			return nodeMachineCode(myTree.children[0], island);
 	else if (myTree.myType == multiDiv)
 		if (myTree.myToken.text == "*")
-			return nodeMachineCode(myTree.children[0]) + PUSH(eax) +
-			       nodeMachineCode(myTree.children[1]) + POP(ecx) +
-			       MUL(eax, ecx);
+			return nodeMachineCode(myTree.children[0], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[1], island) +
+			       POP(ecx) + MUL(eax, ecx);
 		else if (myTree.myToken.text == "/")
-			return nodeMachineCode(myTree.children[1]) + PUSH(eax) +
-			       nodeMachineCode(myTree.children[0]) + POP(ecx) +
-			       DIV(eax, ecx);
+			return nodeMachineCode(myTree.children[1], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[0], island) +
+			       POP(ecx) + DIV(eax, ecx);
 		else  // if (myTree.myToken.text == "mod")
-			return nodeMachineCode(myTree.children[1]) + PUSH(eax) +
-			       nodeMachineCode(myTree.children[0]) + POP(ecx) +
-			       MOD(eax, ecx);
+			return nodeMachineCode(myTree.children[1], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[0], island) +
+			       POP(ecx) + MOD(eax, ecx);
 	else if (myTree.myType == powers)
-		return nodeMachineCode(myTree.children[0]);
+		return nodeMachineCode(myTree.children[0], island);
 	else if (myTree.myType == builtinFunc)
 		if (myTree.myToken.text == "print") {
 			program ret;
 			for (auto kid : myTree.children)
 				if (kid.myType == pstring)
-					ret += nodeMachineCode(kid) +
+					ret += nodeMachineCode(kid, island) +
 					       PRINT_STRING();
 				else
-					ret +=
-					    nodeMachineCode(kid) + PRINT_INT();
+					ret += nodeMachineCode(kid, island) +
+					       PRINT_INT();
 			return ret;
+		} else if (myTree.myToken.text == "read") {
+			auto varlocation =
+			    island.find(myTree.children[0].myToken.text);
+			return READ_INT() + STORAGE(varlocation, eax);
 		} else
 			throw "Unknown builtin "s + myTree.myToken.text;
-	else if (myTree.myType == block) {
+	else if (myTree.myType == assignment) {
+		auto varlocation = island.find(myTree.children[0].myToken.text);
+		return nodeMachineCode(myTree.children[1], island) +
+		       STORAGE(varlocation, eax);
+	} else if (myTree.myType == block) {
 		// enter new scope
 		// run all the code!
 		program ret;
+		Enviroment innerEnviroment;
 		for (auto kid : myTree.children)
-			ret += nodeMachineCode(kid);
+			ret += nodeMachineCode(kid, innerEnviroment);
+		ret += innerEnviroment.cleanup();
 		return ret;
 	} else
 		throw "Unexpected Node Type: "s + std::to_string(myTree.myType);
@@ -252,7 +323,10 @@ program nodeMachineCode(Tree myTree) {
 
 program machineCodeGenerator(Tree myTree) {
 	try {
-		return nodeMachineCode(myTree) + RET();
+		Enviroment globalEnviroment;  // better be carefuly not to cause
+		                              // global warming!
+		return nodeMachineCode(myTree, globalEnviroment) +
+		       globalEnviroment.cleanup() + RET();
 	} catch (std::string error) {
 		std::cout << "Code Generation ERROR: " << error << std::endl;
 		return RET();

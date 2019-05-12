@@ -1,26 +1,26 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
+  a
+  b
   print
     Input a value for a:
   read
-    variable: a
+    a
   print
     Input a value for b:
   read
-    variable: b
+    b
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
 
 
   if
     <
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is less than b
@@ -31,8 +31,8 @@ statement block
 
   if
     <
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is greater than b
@@ -43,8 +43,8 @@ statement block
 
   if
     <=
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is less than or equal to b
@@ -55,8 +55,8 @@ statement block
 
   if
     <=
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is greater than or equal to b
@@ -67,8 +67,8 @@ statement block
 
   if
     =
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is equal to b
@@ -79,8 +79,8 @@ statement block
 
   if
     ~=
-      variable: a
-      variable: b
+      a
+      b
     statement block
       print
         a is not equal to b

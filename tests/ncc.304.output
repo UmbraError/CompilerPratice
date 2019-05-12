@@ -1,31 +1,31 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
+  a
+  b
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     25
   print
     a:
-    variable: a
+    a
 
 
   print
     b:
-    variable: b
+    b
 
 
   print
     Is a < 10 or b < 10?
     or
       <
-        variable: a
+        a
         10
       <
-        variable: b
+        b
         10
 
 
@@ -33,10 +33,10 @@ statement block
     Is a < 20 or b < 10?
     or
       <
-        variable: a
+        a
         20
       <
-        variable: b
+        b
         10
 
 
@@ -44,10 +44,10 @@ statement block
     Is a < 10 or b < 30?
     or
       <
-        variable: a
+        a
         10
       <
-        variable: b
+        b
         30
 
 
@@ -55,10 +55,10 @@ statement block
     Is a < 20 or b < 30?
     or
       <
-        variable: a
+        a
         20
       <
-        variable: b
+        b
         30
 
 

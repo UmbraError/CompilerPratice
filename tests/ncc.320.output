@@ -1,24 +1,24 @@
 Code tree:
 statement block
-  variable: a
-  variable: b
+  a
+  b
   <-
-    variable: a
+    a
     15
   <-
-    variable: b
+    b
     25
   print
     a:
-    variable: a
+    a
       b:
-    variable: b
+    b
 
 
   if
     <
-      variable: a
-      variable: b
+      a
+      b
     print
       Inside body of decision 1.
 
@@ -27,8 +27,8 @@ statement block
 
   if
     <
-      variable: a
-      variable: b
+      a
+      b
     print
       Inside body of decision 2.
 
