@@ -2,6 +2,6 @@ Code tree:
 statement block
   print
     Hello
-Code size: 25 bytes.
+Code size: 23 bytes.
 Code execution:
 Hello

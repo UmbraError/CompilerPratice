@@ -31,7 +31,7 @@ Tree Parser::parseParenExper() {
 	if (aToken.type != "LPAREN")
 		throw "Expected LPAREN got: "s + aToken.type;
 	myLexicalAnalyzer.getToken();
-	auto insideParen = parseExpression();
+	auto insideParen = parseArithmeticExpression();
 	aToken = myLexicalAnalyzer.peekToken();
 	if (aToken.type != "RPAREN")
 		throw "Expected RPAREN got: "s + aToken.type;
@@ -113,7 +113,45 @@ Tree Parser::parseAddAndSubtract() {
 	return parseAddAndSubtractPrime(leftOperand);
 }
 
-Tree Parser::parseExpression() { return parseAddAndSubtract(); }
+Tree Parser::parseArithmeticExpression() { return parseAddAndSubtract(); }
+
+Tree Parser::parseFunctionPrint() {
+	// "print" ( parseArithmeticExpresion ) ;
+	auto printToken = myLexicalAnalyzer.peekToken();
+	if (printToken.type != "IDENT" || printToken.text != "print")
+		throw "Expected print statement got: "s + printToken.type +
+		    " : " + printToken.text;
+	myLexicalAnalyzer.getToken();
+	auto lparenToken = myLexicalAnalyzer.peekToken();
+	if (lparenToken.type != "LPAREN")
+		throw "Expected '(' in print got: "s + lparenToken.type;
+	vector<Tree> parameters;
+	Token aToken;
+	do {
+		myLexicalAnalyzer.getToken();
+		aToken = myLexicalAnalyzer.peekToken();
+		if (aToken.type == "STRING") {
+			parameters.push_back(Node(pstring, aToken, {}));
+			myLexicalAnalyzer.getToken();
+		} else
+			parameters.push_back(parseArithmeticExpression());
+
+		aToken = myLexicalAnalyzer.peekToken();
+	} while (aToken.type == "COMMA");
+	if (aToken.type != "RPAREN")
+		throw "Expected ')' in print got: "s + aToken.type;
+	myLexicalAnalyzer.getToken();
+	auto semiToken = myLexicalAnalyzer.peekToken();
+	if (semiToken.type != "SEMICOLON")
+		throw "Expected ';' in print got: "s + semiToken.type;
+	myLexicalAnalyzer.getToken();
+	return Node(builtinFunc, printToken, parameters);
+}
+
+Tree Parser::parseStatementBlock() {
+	return Node(block, {"statement block", "", NNULL},
+	            {parseFunctionPrint()});
+}
 
 std::ostream& operator<<(std::ostream& o, Node node) {
 	static int depth = 0;

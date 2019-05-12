@@ -389,6 +389,10 @@ Token LexicalAnalyzer::getToken() {
 
 					if (temp == '\"') {
 						currentToken += temp;
+						currentToken.erase(
+						    currentToken.begin(),
+						    currentToken.begin() + 1);
+						currentToken.pop_back();
 						return Token(currentToken,
 						             "STRING",
 						             currentState);

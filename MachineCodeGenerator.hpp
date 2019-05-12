@@ -2,7 +2,9 @@
 #define __MACHINECODEGENERATOR_HPP__
 
 #include <sys/mman.h>
+#include "disasm.hpp"
 #include "parser.hpp"
+
 struct program {
 	std::vector<char> buffer;
 	int operator()() {
@@ -25,14 +27,26 @@ struct program {
 			buffer.push_back((char)op);
 	}
 
+	program& operator+=(program rhs) {
+		for (auto op : rhs.buffer)
+			this->buffer.push_back(op);
+		return *this;
+	}
 	program operator+(program rhs) {
 		program ret(*this);
-		for (auto op : rhs.buffer)
-			ret.buffer.push_back(op);
+		ret += rhs;
 		return ret;
 	}
 
 	int size() { return buffer.size(); }
+
+	void disassembler() {
+		char prog[buffer.size()];
+		int pos = 0;
+		for (auto op : buffer)
+			prog[pos++] = op;
+		disassemble((unsigned char*)prog, pos);
+	}
 };
 
 program machineCodeGenerator(Tree myTree);

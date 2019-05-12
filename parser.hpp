@@ -19,7 +19,10 @@ enum nodeType {
 	multiDiv,     // Multiple, Divide, Mode
 	powers,       // exsponets, example: 5^2 = 25
 	constantInt,  // Consant Integar: example: 5
-	variable      // ???
+	variable,     // ???
+	builtinFunc,  // hmmmmm?
+	block,        // PROFIT!
+	pstring       // some of my phavorite things!
 };
 
 /*
@@ -65,7 +68,9 @@ class Parser {
 	Tree parseMultAndDiv();
 	Tree parseAddAndSubtractPrime(Tree);
 	Tree parseAddAndSubtract();
-	Tree parseExpression();
+	Tree parseArithmeticExpression();
+	Tree parseFunctionPrint();
+	Tree parseStatementBlock();
 
        public:
 	/*
@@ -84,7 +89,7 @@ class Parser {
 	Tree getNext() {
 		if (myLexicalAnalyzer.peekToken().type == "EOF") return Tree();
 		try {
-			return parseExpression();
+			return parseStatementBlock();
 		} catch (std::string error) {
 			std::cout << "Parse ERROR: " << error << std::endl;
 			return Tree();

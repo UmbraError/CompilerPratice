@@ -1,12 +1,18 @@
 #include "MachineCodeGenerator.hpp"
 #include <cstdlib>
 #include <iostream>
+#include <memory>
 #include <string>
 using namespace std::string_literals;
 
-enum Reg { eax, ebx, ecx, edx };
+namespace Fun {
+void print_int(int x) { std::cout << x; }
+void print_str(char* s) { std::cout << s; }
+}  // namespace Fun
 
-program littleEndian(int num, int bytes) {
+enum Reg { eax, ebx, ecx, edx, rsi, rdi, rax };
+
+program littleEndian(long long int num, int bytes) {
 	if (bytes == 0) return program();
 	return program(num & 0xFF) + littleEndian(num >> 8, bytes - 1);
 }
@@ -19,6 +25,28 @@ program MOV(Reg reg, int num) {
 			return program(0xba) + littleEndian(num, 4);
 		default:
 			throw "Unknown Register for MOV(r,imm)"s;
+	}
+}
+
+// return MOV(rax, myTree.myToken.text.c_str());
+program MOV(Reg reg, char const* cstr) {
+	switch (reg) {
+		case rdi:
+			return program({0x48, 0xbf}) +
+			       littleEndian((long long int)cstr, 8);
+		default:
+			throw "Unknown Register for MOV(r,cstr)"s;
+	}
+}
+
+template <typename T>
+program MOV(Reg reg, void (*fp)(T)) {
+	switch (reg) {
+		case rsi:
+			return program({0x48, 0xbe}) +
+			       littleEndian((long long int)fp, 8);
+		default:
+			throw "Unknown Register for MOV(r,*fp)"s;
 	}
 }
 
@@ -36,6 +64,13 @@ program MOV(Reg reg1, Reg reg2) {
 			switch (reg2) {
 				case edx:
 					return program({0x89, 0xd0});
+				default:
+					throw "Unknown Register 2 for MOV(r,r)"s;
+			}
+		case rdi:
+			switch (reg2) {
+				case rax:
+					return {{0x89, 0xc7}};
 				default:
 					throw "Unknown Register 2 for MOV(r,r)"s;
 			}
@@ -133,12 +168,36 @@ program POP(Reg reg) {
 			throw "Unknown register for POP(r)"s;
 	}
 }
+
+program CALL(Reg reg) {
+	switch (reg) {
+		case rsi:
+			return {{0xff, 0xd6}};
+			// program({0xff,0xd6});
+		default:
+			throw "Unknown register for Call(r)"s;
+	}
+}
+
+program PRINT_INT() {
+	return MOV(rdi, rax) + MOV(rsi, Fun::print_int) + CALL(rsi);
+}
+
+program PRINT_STRING() { return MOV(rsi, Fun::print_str) + CALL(rsi); }
+
 program RET() { return program(0xC3); }
 
 program nodeMachineCode(Tree myTree) {
+	// storage of strings so that the pointer does not disappear.
+	static std::vector<std::unique_ptr<std::string>> stringTable;
+
 	if (myTree.myType == constantInt)
 		return MOV(eax, atol(myTree.myToken.text.c_str()));
-	else if (myTree.myType == addSub)
+	else if (myTree.myType == pstring) {
+		stringTable.push_back(
+		    std::make_unique<std::string>(myTree.myToken.text));
+		return MOV(rdi, stringTable.back()->c_str());
+	} else if (myTree.myType == addSub)
 		if (myTree.myToken.text == "+")
 			return nodeMachineCode(myTree.children[0]) + PUSH(eax) +
 			       nodeMachineCode(myTree.children[1]) + POP(ecx) +
@@ -167,7 +226,27 @@ program nodeMachineCode(Tree myTree) {
 			       MOD(eax, ecx);
 	else if (myTree.myType == powers)
 		return nodeMachineCode(myTree.children[0]);
-	else
+	else if (myTree.myType == builtinFunc)
+		if (myTree.myToken.text == "print") {
+			program ret;
+			for (auto kid : myTree.children)
+				if (kid.myType == pstring)
+					ret += nodeMachineCode(kid) +
+					       PRINT_STRING();
+				else
+					ret +=
+					    nodeMachineCode(kid) + PRINT_INT();
+			return ret;
+		} else
+			throw "Unknown builtin "s + myTree.myToken.text;
+	else if (myTree.myType == block) {
+		// enter new scope
+		// run all the code!
+		program ret;
+		for (auto kid : myTree.children)
+			ret += nodeMachineCode(kid);
+		return ret;
+	} else
 		throw "Unexpected Node Type: "s + std::to_string(myTree.myType);
 }
 
