@@ -26,7 +26,7 @@ statement block
     Outside body of decision 1.
 
   if
-    <
+    >
       a
       b
     print
@@ -35,9 +35,10 @@ statement block
   print
     Outside body of decision 2.
 
-Code size: 351 bytes.
+Code size: 267 bytes.
 Code execution:
 a: 15  b: 25
 Inside body of decision 1.
 Outside body of decision 1.
 Outside body of decision 2.
+

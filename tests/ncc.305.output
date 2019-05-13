@@ -20,7 +20,7 @@ statement block
 
   print
     Is a < 10 and b < 10?
-    and
+    &
       <
         a
         10
@@ -31,7 +31,7 @@ statement block
 
   print
     Is a < 20 and b < 10?
-    and
+    &
       <
         a
         20
@@ -42,7 +42,7 @@ statement block
 
   print
     Is a < 10 and b < 30?
-    and
+    &
       <
         a
         10
@@ -53,7 +53,7 @@ statement block
 
   print
     Is a < 20 and b < 30?
-    and
+    &
       <
         a
         20
@@ -62,7 +62,7 @@ statement block
         30
 
 
-Code size: 677 bytes.
+Code size: 545 bytes.
 Code execution:
 a: 15
 b: 25
@@ -70,3 +70,4 @@ Is a < 10 and b < 10? false
 Is a < 20 and b < 10? false
 Is a < 10 and b < 30? false
 Is a < 20 and b < 30? true
+

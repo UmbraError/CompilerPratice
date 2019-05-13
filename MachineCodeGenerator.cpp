@@ -8,6 +8,7 @@ using namespace std::string_literals;
 namespace Fun {
 void print_int(int x) { std::cout << x; }
 void print_str(char* s) { std::cout << s; }
+void print_bool(bool b) { std::cout << (b ? "true" : "false"); }
 int read_int() {
 	int x;
 	std::cin >> x;
@@ -23,6 +24,7 @@ program littleEndian(long long int num, int bytes) {
 }
 
 program MOV(Reg reg, int num) {
+	// std::cout << "In MOV(r,i) i="<<num<<std::endl;
 	switch (reg) {
 		case eax:
 			return program(0xb8) + littleEndian(num, 4);
@@ -176,6 +178,88 @@ program MOD(Reg reg1, Reg reg2) {
 	return DIV(reg1, reg2) + MOV(eax, edx);
 }
 
+program CMP(Reg reg1, Reg reg2) {
+	// flargelnarg
+	switch (reg1) {
+		case eax:
+			switch (reg2) {
+				case eax:
+					return {{0x39, 0xc0}};
+				case ecx:
+					return {{0x39, 0xc8}};
+				default:
+					throw "Unexpceted register 2 in CMP(r,r)"s;
+			}
+		default:
+			throw "Unexpceted register 1 in CMP(r,r)"s;
+	}
+}
+
+program EXTENTIONS_EXCLAMATIONPOINT() {
+	// JUST THREE EASY PAYMENTS OF 0xffff
+	return {{0x66, 0x98, 0x98}};
+}
+
+program BOOL_LESS() {
+	return program({0x0f, 0x9c, 0xc0})  // setl al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+program BOOL_LESS_EQ() {
+	return program({0x0f, 0x9e, 0xc0})  // setle al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+program BOOL_GREATER_EQ() {
+	return program({0x0f, 0x9d, 0xc0})  // setge al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+program BOOL_GREATER() {
+	return program({0x0f, 0x9f, 0xc0})  // setg al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+program BOOL_EQ() {
+	return program({0x0f, 0x94, 0xc0})  // sete al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+program BOOL_NOT_EQ() {
+	return program({0x0f, 0x95, 0xc0})  // setne al
+	       + EXTENTIONS_EXCLAMATIONPOINT();
+}
+
+program AND(Reg reg1, Reg reg2) {
+	switch (reg1) {
+		case eax:
+			switch (reg2) {
+				case ecx:
+					return {{0x21, 0xc8}};
+				default:
+					throw "Unexpected Register 2 for AND(r,r)"s;
+			}
+		default:
+			throw "Unexpected register 1 for AND(r,r)"s;
+	}
+}
+program OR(Reg reg1, Reg reg2) {
+	switch (reg1) {
+		case eax:
+			switch (reg2) {
+				case ecx:
+					return {{0x09, 0xc8}};
+				default:
+					throw"Unexpected register 2 for OR(r,r)"s;
+			}
+		default:
+			throw "Unexpected register 1 for OR(r,r)"s;
+	}
+}
+program NOT(Reg reg) {
+	switch (reg) {
+		case eax:
+			return {{0xf7, 0xd0}};
+		default:
+			throw "Unknown register in NOT(r)"s;
+	}
+}
+
 program PUSH(Reg reg) {
 	switch (reg) {
 		case eax:
@@ -194,6 +278,10 @@ program POP(Reg reg) {
 	}
 }
 
+program JE(int distance) {
+	return program({0x0f, 0x84}) + littleEndian(distance, 4);
+}
+
 program CALL(Reg reg) {
 	switch (reg) {
 		case rsi:
@@ -204,12 +292,13 @@ program CALL(Reg reg) {
 	}
 }
 
+program READ_INT() { return MOV(rsi, Fun::read_int) + CALL(rsi); }
 program PRINT_INT() {
 	return MOV(rdi, rax) + MOV(rsi, Fun::print_int) + CALL(rsi);
 }
-
-program READ_INT() { return MOV(rsi, Fun::read_int) + CALL(rsi); }
-
+program PRINT_BOOL() {
+	return MOV(rdi, rax) + MOV(rsi, Fun::print_bool) + CALL(rsi);
+}
 program PRINT_STRING() { return MOV(rsi, Fun::print_str) + CALL(rsi); }
 
 program RET() { return program(0xC3); }
@@ -245,7 +334,49 @@ program nodeMachineCode(Tree myTree, Enviroment& island) {
 		stringTable.push_back(
 		    std::make_unique<std::string>(myTree.myToken.text));
 		return MOV(rdi, stringTable.back()->c_str());
-	} else if (myTree.myType == variable)
+	} else if (myTree.myType == boolean)
+		if (myTree.myToken.text == "true")
+			return MOV(eax, 1);
+		else if (myTree.myToken.text == "false")
+			return MOV(eax, 0);
+		else {
+			auto /*m*/ lp =
+			    nodeMachineCode(myTree.children[0], island);
+			auto rp = nodeMachineCode(myTree.children[1], island);
+			if (myTree.myToken.type == "LESS")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_LESS();
+			else if (myTree.myToken.type == "LESS_EQ")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_LESS_EQ();
+			else if (myTree.myToken.type == "GREATER_EQ")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_GREATER_EQ();
+			else if (myTree.myToken.type == "GREATER")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_GREATER();
+			else if (myTree.myToken.type == "EQUAL")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_EQ();
+			else  // if myTree.myToken.type == "NOT_EQUAL")
+				return rp + PUSH(eax) + lp + POP(ecx) +
+				       CMP(eax, ecx) + BOOL_NOT_EQ();
+		}
+	else if (myTree.myType == logExp)
+		if (myTree.myToken.type == "NOT")
+			return nodeMachineCode(myTree.children[0], island) +
+			       NOT(eax);
+		else if (myTree.myToken.type == "AND")
+			return nodeMachineCode(myTree.children[0], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[1], island) +
+			       POP(ecx) + AND(eax, ecx);
+		else  // if (myTree.myTolen.type == "OR" )
+			return nodeMachineCode(myTree.children[0], island) +
+			       PUSH(eax) +
+			       nodeMachineCode(myTree.children[1], island) +
+			       POP(ecx) + OR(eax, ecx);
+	else if (myTree.myType == variable)
 		return GET_VAR(eax, island.find(myTree.myToken.text));
 	else if (myTree.myType == declare) {
 		island.symbolTable.push_back(
@@ -294,6 +425,10 @@ program nodeMachineCode(Tree myTree, Enviroment& island) {
 				if (kid.myType == pstring)
 					ret += nodeMachineCode(kid, island) +
 					       PRINT_STRING();
+				else if (kid.myType == boolean ||
+				         kid.myType == logExp)
+					ret += nodeMachineCode(kid, island) +
+					       PRINT_BOOL();
 				else
 					ret += nodeMachineCode(kid, island) +
 					       PRINT_INT();
@@ -317,6 +452,12 @@ program nodeMachineCode(Tree myTree, Enviroment& island) {
 			ret += nodeMachineCode(kid, innerEnviroment);
 		ret += innerEnviroment.cleanup();
 		return ret;
+	} else if (myTree.myType == controlStructure)
+	// if(myTree.myToken.text=="if")
+	{
+		auto code = nodeMachineCode(myTree.children[1], island);
+		return nodeMachineCode(myTree.children[0], island) +
+		       CMP(eax, eax) + JE(code.size()) + code;
 	} else
 		throw "Unexpected Node Type: "s + std::to_string(myTree.myType);
 }

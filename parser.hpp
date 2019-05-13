@@ -10,21 +10,23 @@
 #include "token.hpp"
 
 enum nodeType {
-	empty,        // no token yet
-	arthExp,      // Arthemetic expression
-	ratExp,       // Rational expression
-	logExp,       // Logical expression
-	unary,        // negative or postive sign
-	addSub,       // Plus or subtraction
-	multiDiv,     // Multiple, Divide, Mode
-	powers,       // exsponets, example: 5^2 = 25
-	constantInt,  // Consant Integar: example: 5
-	variable,     // ???
-	builtinFunc,  // hmmmmm?
-	block,        // PROFIT!
-	pstring,      // some of my phavorite things!
-	declare,      // my independence!
-	assignment    // number 3 is a bit late
+	empty,            // no token yet
+	arthExp,          // Arthemetic expression
+	ratExp,           // Rational expression
+	logExp,           // Logical expression
+	unary,            // negative or postive sign
+	addSub,           // Plus or subtraction
+	multiDiv,         // Multiple, Divide, Mode
+	powers,           // exsponets, example: 5^2 = 25
+	constantInt,      // Consant Integar: example: 5
+	variable,         // ???
+	builtinFunc,      // hmmmmm?
+	block,            // PROFIT!
+	pstring,          // some of my phavorite things!
+	declare,          // my independence!
+	assignment,       // number 3 is a bit late
+	boolean,          // logic is defined on and and xor, not or
+	controlStructure  // THE AGENTS OF THE STATE KNOW NO BOUNDS!
 };
 
 /*
@@ -71,12 +73,23 @@ class Parser {
 	Tree parseAddAndSubtractPrime(Tree);
 	Tree parseAddAndSubtract();
 	Tree parseArithmeticExpression();
+	Tree parseBooleanValue();
+	Tree parseBooleanExpression();
+	Tree parseBooleanAndPrime(Tree);
+	Tree parseBooleanAnd();
+	Tree parseBooleanOrPrime(Tree);
+	Tree parseBooleanOr();
+	Tree parseBoolean();
+	Tree parseMysteryParenths();
+	Tree parseBooleanOrArithmeticExpression();
 	Tree parseFunctionPrint();
 	Tree parseFunctionRead();
 	Tree parseDeclaration();
 	Tree parseAssignment();
+	Tree parseControlStructureIf();
 	Tree parseStatement();
-	Tree parseStatementBlock();
+	Tree parseGlobalBlock();
+	Tree parseBlockOrStatement();
 
        public:
 	/*
@@ -95,7 +108,7 @@ class Parser {
 	Tree getNext() {
 		if (myLexicalAnalyzer.peekToken().type == "EOF") return Tree();
 		try {
-			return parseStatementBlock();
+			return parseGlobalBlock();
 		} catch (std::string error) {
 			std::cout << "Parse ERROR: " << error << std::endl;
 			return Tree();

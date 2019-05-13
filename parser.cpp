@@ -6,17 +6,7 @@ using namespace std::string_literals;
 
 Parser::Parser() {}
 
-void Parser::init(std::string filename) {
-	myLexicalAnalyzer.init(filename);
-
-	//	keywords.push_back("mod");
-	//	keywords.push_back("int4");
-	//	keywords.push_back("string");
-}
-
-// Would you like to return parse errors as
-// A) error codes (The C way)
-// B) Thrown exceptions (The OO way)
+void Parser::init(std::string filename) { myLexicalAnalyzer.init(filename); }
 
 Tree Parser::parseIntegerConstant() {
 	auto aToken = myLexicalAnalyzer.peekToken();
@@ -118,6 +108,157 @@ Tree Parser::parseAddAndSubtract() {
 
 Tree Parser::parseArithmeticExpression() { return parseAddAndSubtract(); }
 
+Tree Parser::parseBooleanValue() {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type == "IDENT" &&
+	    (aToken.text == "true" || aToken.text == "false")) {
+		myLexicalAnalyzer.getToken();
+		return Node(boolean, aToken, {});
+	}
+	throw "Expected true or false got: "s + aToken.type + " " + aToken.text;
+}
+
+Tree Parser::parseBooleanExpression() {
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type == "LPAREN") {
+		auto inside = parseMysteryParenths();
+		if (inside.myType == logExp || inside.myType == boolean)
+			return inside;
+		inside = parseAddAndSubtractPrime(parseMultAndDivPrime(inside));
+		auto expressionOperator = myLexicalAnalyzer.peekToken();
+		if (expressionOperator.type != "LESS" &&
+		    expressionOperator.type != "LESS_EQ" &&
+		    expressionOperator.type != "GREATER_EQ" &&
+		    expressionOperator.type != "GREATER" &&
+		    expressionOperator.type != "EQUAL" &&
+		    expressionOperator.type != "NOT_EQUAL")
+			throw "Expected realational operator in parse bool got: "s+expressionOperator.type;
+		myLexicalAnalyzer.getToken();
+		auto expressionRight = parseArithmeticExpression();
+		return Node(boolean, expressionOperator,
+		            {inside, expressionRight});
+	}
+	if (aToken.type == "NOT") {
+		myLexicalAnalyzer.getToken();
+		return Node(logExp, aToken, {parseBooleanExpression()});
+	}
+	if (aToken.type == "IDENT" &&
+	    (aToken.text == "true" || aToken.text == "false"))
+		return parseBooleanValue();
+	auto expressionLeft = parseArithmeticExpression();
+	auto expressionOperator = myLexicalAnalyzer.peekToken();
+	if (expressionOperator.type != "LESS" &&
+	    expressionOperator.type != "LESS_EQ" &&
+	    expressionOperator.type != "GREATER_EQ" &&
+	    expressionOperator.type != "GREATER" &&
+	    expressionOperator.type != "EQUAL" &&
+	    expressionOperator.type != "NOT_EQUAL")
+		throw "Expected boolean realational operator got: "s +
+		    expressionOperator.type;
+	myLexicalAnalyzer.getToken();
+	auto expressionRight = parseArithmeticExpression();
+	return Node(boolean, expressionOperator,
+	            {expressionLeft, expressionRight});
+}
+
+Tree Parser::parseBooleanAndPrime(Tree accumulator) {
+	auto andToken = myLexicalAnalyzer.peekToken();
+	if (andToken.type != "AND") return accumulator;
+	myLexicalAnalyzer.getToken();
+	auto boolExpression = parseBooleanExpression();
+	return parseBooleanAndPrime(
+	    Node(logExp, andToken, {accumulator, boolExpression}));
+}
+
+Tree Parser::parseBooleanAnd() {
+	return parseBooleanAndPrime(parseBooleanExpression());
+}
+
+Tree Parser::parseBooleanOrPrime(Tree accumulator) {
+	auto oarToken = myLexicalAnalyzer.peekToken();
+	// now we can row around our island
+	if (oarToken.type != "OR") return accumulator;
+	myLexicalAnalyzer.getToken();
+	auto andExpression = parseBooleanAnd();
+	return parseBooleanOrPrime(
+	    Node(logExp, oarToken, {accumulator, andExpression}));
+}
+
+Tree Parser::parseBooleanOr() { return parseBooleanOrPrime(parseBooleanAnd()); }
+
+Tree Parser::parseBoolean() { return parseBooleanOr(); }
+
+Tree Parser::parseMysteryParenths() {
+	// (a+3)<4
+	// (a<4) & b = 2
+	auto lparenToken = myLexicalAnalyzer.peekToken();
+	if (lparenToken.type != "LPAREN")
+		throw "Expected '(' got: "s + lparenToken.type;
+	myLexicalAnalyzer.getToken();
+	auto inside = parseBooleanOrArithmeticExpression();
+	auto rparenToken = myLexicalAnalyzer.peekToken();
+	if (rparenToken.type != "RPAREN")
+		throw "Expected ')' got: "s + rparenToken.type;
+	myLexicalAnalyzer.getToken();
+	return inside;
+}
+
+Tree Parser::parseBooleanOrArithmeticExpression() {
+	// true
+	// a+3
+	// a<b
+	// a<3 OR b>4
+	auto aToken = myLexicalAnalyzer.peekToken();
+	if (aToken.type == "LPAREN") {
+		auto inside = parseMysteryParenths();
+		if (inside.myType == logExp || inside.myType == boolean)
+			return parseBooleanOrPrime(
+			    parseBooleanAndPrime(inside));
+		// parse thing in ()s
+		// still deal with & and | after it
+		auto expressionOperator = myLexicalAnalyzer.peekToken();
+		if (expressionOperator.type != "LESS" &&
+		    expressionOperator.type != "LESS_EQ" &&
+		    expressionOperator.type != "GREATER_EQ" &&
+		    expressionOperator.type != "GREATER" &&
+		    expressionOperator.type != "EQUAL" &&
+		    expressionOperator.type != "NOT_EQUAL")
+			return parseAddAndSubtractPrime(
+			    parseMultAndDivPrime(inside));
+		myLexicalAnalyzer.getToken();
+		auto expressionRight = parseArithmeticExpression();
+		auto logicalOperator = myLexicalAnalyzer.peekToken();
+		auto relationNode = Node(boolean, expressionOperator,
+		                         {inside, expressionRight});
+		if (logicalOperator.type == "AND" ||
+		    logicalOperator.type == "OR")
+			return parseBooleanOrPrime(
+			    parseBooleanAndPrime(relationNode));
+		return relationNode;
+	}
+	if (aToken.type == "NOT") return parseBoolean();
+	if (aToken.type == "IDENT" &&
+	    (aToken.text == "true" || aToken.text == "false"))
+		return parseBooleanValue();
+	auto expressionLeft = parseArithmeticExpression();
+	auto expressionOperator = myLexicalAnalyzer.peekToken();
+	if (expressionOperator.type != "LESS" &&
+	    expressionOperator.type != "LESS_EQ" &&
+	    expressionOperator.type != "GREATER_EQ" &&
+	    expressionOperator.type != "GREATER" &&
+	    expressionOperator.type != "EQUAL" &&
+	    expressionOperator.type != "NOT_EQUAL")
+		return expressionLeft;
+	myLexicalAnalyzer.getToken();
+	auto expressionRight = parseArithmeticExpression();
+	auto logicalOperator = myLexicalAnalyzer.peekToken();
+	auto relationNode = Node(boolean, expressionOperator,
+	                         {expressionLeft, expressionRight});
+	if (logicalOperator.type == "AND" || logicalOperator.type == "OR")
+		return parseBooleanOrPrime(parseBooleanAndPrime(relationNode));
+	return relationNode;
+}
+
 Tree Parser::parseFunctionPrint() {
 	// "print" ( parseArithmeticExpresion ) ;
 	auto printToken = myLexicalAnalyzer.peekToken();
@@ -137,7 +278,8 @@ Tree Parser::parseFunctionPrint() {
 			parameters.push_back(Node(pstring, aToken, {}));
 			myLexicalAnalyzer.getToken();
 		} else
-			parameters.push_back(parseArithmeticExpression());
+			parameters.push_back(
+			    parseBooleanOrArithmeticExpression());
 
 		aToken = myLexicalAnalyzer.peekToken();
 	} while (aToken.type == "COMMA");
@@ -222,6 +364,26 @@ Tree Parser::parseAssignment() {
 	            {Node(variable, varToken, {}), valTree});
 }
 
+Tree Parser::parseControlStructureIf() {
+	// if ( bool )
+	auto ifToken = myLexicalAnalyzer.peekToken();
+	if (ifToken.type != "IDENT" || ifToken.text != "if")
+		throw "Expected 'if' got: "s + ifToken.type + " " +
+		    ifToken.text;
+	myLexicalAnalyzer.getToken();
+	auto lparenToken = myLexicalAnalyzer.peekToken();
+	if (lparenToken.type != "LPAREN")
+		throw "Expected '(' got: "s + lparenToken.type;
+	myLexicalAnalyzer.getToken();
+	auto check = parseBoolean();
+	auto rparenToken = myLexicalAnalyzer.peekToken();
+	if (rparenToken.type != "RPAREN")
+		throw "Expected ')' got: "s + rparenToken.type;
+	myLexicalAnalyzer.getToken();
+	auto areCode = parseBlockOrStatement();
+	return Node(controlStructure, ifToken, {check, areCode});
+}
+
 Tree Parser::parseStatement() {
 	auto aToken = myLexicalAnalyzer.peekToken();
 	if (aToken.type == "IDENT" && aToken.text == "print")
@@ -230,17 +392,29 @@ Tree Parser::parseStatement() {
 		return parseDeclaration();
 	if (aToken.type == "IDENT" && aToken.text == "read")
 		return parseFunctionRead();
+	if (aToken.type == "IDENT" && aToken.text == "if")
+		return parseControlStructureIf();
 	if (aToken.type == "IDENT")  // we don't know the var to check
 		return parseAssignment();
 	throw "Expected print, declaration, or read got: "s + aToken.type +
 	    " " + aToken.text;
 }
 
-Tree Parser::parseStatementBlock() {
+Tree Parser::parseGlobalBlock() {
 	vector<Node> statements;
 	while (myLexicalAnalyzer.peekToken().type != "EOF")
 		statements.push_back(parseStatement());
 	return Node(block, {"statement block", "", NNULL}, statements);
+}
+
+Tree Parser::parseBlockOrStatement() {
+	auto squiggleBrace = myLexicalAnalyzer.peekToken();
+	if (squiggleBrace.type != "LBRACE") return parseStatement();
+	myLexicalAnalyzer.getToken();
+	vector<Node> statements;
+	while (myLexicalAnalyzer.peekToken().type != "RBRACE")
+		statements.push_back(parseStatement());
+	return Node(block, squiggleBrace, statements);
 }
 
 std::ostream& operator<<(std::ostream& o, Node node) {

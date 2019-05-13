@@ -2,13 +2,13 @@ Code tree:
 statement block
   print
     Not true is
-    not
+    !
       true
 
 
   print
     Not false is
-    not
+    !
       false
 
 
@@ -32,12 +32,12 @@ statement block
 
   print
     Is a >= 10 and b >= 10?
-    and
-      not
+    &
+      !
         <
           a
           10
-      not
+      !
         <
           b
           10
@@ -45,12 +45,12 @@ statement block
 
   print
     Is a >= 20 and b >= 10?
-    and
-      not
+    &
+      !
         <
           a
           20
-      not
+      !
         <
           b
           10
@@ -58,12 +58,12 @@ statement block
 
   print
     Is a >= 10 and b >= 30?
-    and
-      not
+    &
+      !
         <
           a
           10
-      not
+      !
         <
           b
           30
@@ -71,18 +71,18 @@ statement block
 
   print
     Is a >= 20 and b >= 30?
-    and
-      not
+    &
+      !
         <
           a
           20
-      not
+      !
         <
           b
           30
 
 
-Code size: 833 bytes.
+Code size: 691 bytes.
 Code execution:
 Not true is  false
 Not false is true
@@ -92,3 +92,4 @@ Is a >= 10 and b >= 10? true
 Is a >= 20 and b >= 10? false
 Is a >= 10 and b >= 30? false
 Is a >= 20 and b >= 30? false
+

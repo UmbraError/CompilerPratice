@@ -9,73 +9,73 @@ statement block
     b
     4
   print
-    Is
+    Is 
     a
-     <
+     < 
     b
-    ?
+    ? 
     <
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     <=
+     <= 
     b
-    ?
+    ? 
     <=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >
+     > 
     b
-    ?
-    <
+    ? 
+    >
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >=
+     >= 
     b
-    ?
-    <=
+    ? 
+    >=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     =
+     = 
     b
-    ?
+    ? 
     =
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     ~=
+     ~= 
     b
-    ?
+    ? 
     ~=
       a
       b
-
+    
 
   print
-
+    
 
   <-
     a
@@ -86,73 +86,73 @@ statement block
     -
       4
   print
-    Is
+    Is 
     a
-     <
+     < 
     b
-    ?
+    ? 
     <
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     <=
+     <= 
     b
-    ?
+    ? 
     <=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >
+     > 
     b
-    ?
-    <
+    ? 
+    >
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >=
+     >= 
     b
-    ?
-    <=
+    ? 
+    >=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     =
+     = 
     b
-    ?
+    ? 
     =
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     ~=
+     ~= 
     b
-    ?
+    ? 
     ~=
       a
       b
-
+    
 
   print
-
+    
 
   <-
     a
@@ -162,73 +162,73 @@ statement block
     -
       4
   print
-    Is
+    Is 
     a
-     <
+     < 
     b
-    ?
+    ? 
     <
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     <=
+     <= 
     b
-    ?
+    ? 
     <=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >
+     > 
     b
-    ?
-    <
+    ? 
+    >
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >=
+     >= 
     b
-    ?
-    <=
+    ? 
+    >=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     =
+     = 
     b
-    ?
+    ? 
     =
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     ~=
+     ~= 
     b
-    ?
+    ? 
     ~=
       a
       b
-
+    
 
   print
-
+    
 
   <-
     a
@@ -237,72 +237,72 @@ statement block
     b
     3
   print
-    Is
+    Is 
     a
-     <
+     < 
     b
-    ?
+    ? 
     <
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     <=
+     <= 
     b
-    ?
+    ? 
     <=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >
+     > 
     b
-    ?
-    <
+    ? 
+    >
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     >=
+     >= 
     b
-    ?
-    <=
+    ? 
+    >=
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     =
+     = 
     b
-    ?
+    ? 
     =
       a
       b
-
+    
 
   print
-    Is
+    Is 
     a
-     ~=
+     ~= 
     b
-    ?
+    ? 
     ~=
       a
       b
+    
 
-
-Code size: 4899 bytes.
+Code size: 3799 bytes.
 Code execution:
 Is 3 < 4? true
 Is 3 <= 4? true
@@ -331,3 +331,4 @@ Is 3 > 3? false
 Is 3 >= 3? true
 Is 3 = 3? true
 Is 3 ~= 3? false
+

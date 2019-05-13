@@ -31,12 +31,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -55,32 +55,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -102,12 +102,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -126,32 +126,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -173,12 +173,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -197,32 +197,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -244,12 +244,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -268,32 +268,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -318,12 +318,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -342,32 +342,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -389,12 +389,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -413,32 +413,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -463,12 +463,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -487,32 +487,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -540,12 +540,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -564,32 +564,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -614,12 +614,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -638,32 +638,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -688,12 +688,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -712,32 +712,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -762,12 +762,12 @@ statement block
       d:
     d
       expr:
-    and
-      or
-        or
-          or
-            or
-              or
+    &
+      |
+        |
+          |
+            |
+              |
                 =
                   a
                   b
@@ -786,32 +786,32 @@ statement block
         =
           c
           d
-      not
-        or
-          or
-            or
-              and
+      !
+        |
+          |
+            |
+              &
                 =
                   a
                   b
                 =
                   a
                   c
-              and
+              &
                 =
                   a
                   b
                 =
                   b
                   d
-            and
+            &
               =
                 b
                 c
               =
                 b
                 d
-          and
+          &
             =
               a
               c
@@ -847,13 +847,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -872,31 +872,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -918,13 +918,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -943,31 +943,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -989,13 +989,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1014,31 +1014,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1060,13 +1060,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1085,31 +1085,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1134,13 +1134,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1159,31 +1159,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1205,13 +1205,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1230,31 +1230,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1279,13 +1279,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1304,31 +1304,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1356,13 +1356,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1381,31 +1381,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1430,13 +1430,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1455,31 +1455,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1504,13 +1504,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1529,31 +1529,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1578,13 +1578,13 @@ statement block
       d:
     d
       expr:
-    and
-      not
-        and
-          and
-            and
-              and
-                and
+    &
+      !
+        &
+          &
+            &
+              &
+                &
                   ~=
                     a
                     b
@@ -1603,31 +1603,31 @@ statement block
           ~=
             c
             d
-      and
-        and
-          and
-            or
+      &
+        &
+          &
+            |
               ~=
                 a
                 b
               ~=
                 a
                 c
-            or
+            |
               ~=
                 a
                 b
               ~=
                 b
                 d
-          or
+          |
             ~=
               b
               c
             ~=
               b
               d
-        or
+        |
           ~=
             a
             c
@@ -1636,7 +1636,7 @@ statement block
             d
 
 
-Code size: 17503 bytes.
+Code size: 11257 bytes.
 Code execution:
 The following expression should be true if exactly two of the four
 variables have the same value.
@@ -1664,3 +1664,4 @@ a: 15  b: 15  c: 15  d: 45  expr: false
 a: 15  b: 15  c: 35  d: 15  expr: false
 a: 15  b: 25  c: 15  d: 15  expr: false
 a: 25  b: 15  c: 15  d: 15  expr: false
+

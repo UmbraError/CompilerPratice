@@ -10,7 +10,7 @@ statement block
   read
     number
   if
-    or
+    |
       <
         number
         1

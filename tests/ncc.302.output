@@ -9,15 +9,15 @@ statement block
     b
     4
   print
-    Is
+    Is 
     a
-     <
+     < 
     b
-    ?
+    ? 
     <
       a
       b
-
+    
 
   <-
     a
@@ -27,6 +27,7 @@ statement block
     b
     -
       4
-Code size: 295 bytes.
+Code size: 203 bytes.
 Code execution:
 Is 3 < 4? true
+
